@@ -37,6 +37,10 @@ public class Commands {
         spawn.register(dispatcher);
         //back.register(dispatcher);
 
+        warps.register(dispatcher);
+        homes.register(dispatcher);
+        hat.register(dispatcher);
+
         //需要读配置的一些命令的注册
         File configfolder = new File("Lawaxi");
         if(!configfolder.exists())

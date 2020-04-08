@@ -1,0 +1,50 @@
+package net.lawaxi.serverbase.commands;
+
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.dimension.DimensionType;
+
+import java.io.File;
+
+public class warps {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
+    {
+        dispatcher.register(CommandManager.literal("warps")
+                        .executes(ctx -> {
+
+                            ServerPlayerEntity player = ctx.getSource().getPlayer();
+                            File warpfolder = new File("Lawaxi"+File.separator+"warps");
+                            if(warpfolder.exists())
+                            {
+                                String[] filelist = warpfolder.list();
+                                if(filelist.length!=0)
+                                {
+                                    String filelist2="§6地标列表：";
+                                    for(int i=0;i<filelist.length;i++)
+                                    {
+                                        filelist2+=sortName(filelist[i]);
+                                    }
+
+                                    player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)));
+
+                                    return 1;
+                                }
+                            }
+                            player.sendMessage(new LiteralText("§c没有可用的地标"));
+                            return 1;
+                        })
+        );
+    }
+
+    public static String sortName(String name)
+    {
+        //去掉文件名结尾的".yml"
+        return "§e"+name.substring(0,name.length()-4)+"§6,";
+    }
+
+}
