@@ -36,7 +36,7 @@ public class saveme {
                                 if(player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile()))
                                 {
                                     File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
-                                    File worldsave = new File("Lawaxi"+File.separator+"datasaves"+File.separator + uuid + ".dat");
+                                    File worldsave = new File(list.backupfolder+File.separator + uuid + ".dat");
 
                                     player.networkHandler.disconnect(new LiteralText("§a正在备份，请稍后连入"));
                                     FileUtils.copyFile(world,worldsave);

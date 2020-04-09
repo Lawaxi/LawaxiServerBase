@@ -3,6 +3,7 @@ package net.lawaxi.serverbase.commands;
 import com.google.common.io.Files;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import net.lawaxi.serverbase.shits.list;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -23,17 +24,17 @@ public class sethome {
                         .then(CommandManager.argument("家的名称", StringArgumentType.string())
                                 .executes(ctx -> {
 
-                                    File homefolder = new File("Lawaxi"+File.separator+"homes");
+                                    File homefolder = new File(list.homefolder);
                                     if(!homefolder.exists())
                                         homefolder.mkdir();
 
                                     ServerPlayerEntity player =ctx.getSource().getPlayer();
-                                    homefolder = new File("Lawaxi"+File.separator+"homes"+File.separator+player.getEntityName());
+                                    homefolder = new File(list.homefolder+File.separator+player.getEntityName());
                                     if(!homefolder.exists())
                                         homefolder.mkdir();
 
                                     String homename=StringArgumentType.getString(ctx,"家的名称");
-                                    File homefile = new File("Lawaxi"+File.separator+"homes"+File.separator+player.getEntityName() +File.separator+homename+".yml");
+                                    File homefile = new File(list.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
                                     if(homefile.exists())
                                     {
                                         player.sendMessage(new LiteralText("§c家§4 "+homename+" §c已存在，请删除后再写入"));

@@ -1,5 +1,5 @@
 package net.lawaxi.serverbase.commands;
-/*
+
 import com.mojang.brigadier.CommandDispatcher;
 import net.lawaxi.serverbase.shits.list;
 import net.lawaxi.serverbase.shits.locationinfo;
@@ -17,19 +17,12 @@ public class back {
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                            locationinfo a = list.playerrecord.get(player.getEntityId());
-                            if(a!=null)
-                            {
-                                player.sendMessage(new LiteralText("§a正在传送..."));
-                                player.teleport(a.world,a.position.getX(),a.position.getY(),a.position.getZ(),0,0);
-                            }
-                            else
-                            {
-                                player.sendMessage(new LiteralText("§c没有关于上一个坐标的记录"));
-                            }
+                            locationinfo a = list.lastlocation.get(player.getGameProfile());
+                            player.sendMessage(new LiteralText("§a正在传送..."));
+                            player.teleport(a.world,a.position.getX(),a.position.getY(),a.position.getZ(),0,0);
 
                             return 1;
                         })
         );
     }
-}*/
+}

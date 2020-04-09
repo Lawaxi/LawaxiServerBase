@@ -9,7 +9,10 @@
     "ClientMixin"
   ],
   "server": [
-    "Commands"
+    "CommandManagerMixin",
+    "EntityMixin",
+    "PlayerEntityMixin",
+    "ServerPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

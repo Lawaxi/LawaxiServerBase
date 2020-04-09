@@ -1,6 +1,7 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.lawaxi.serverbase.shits.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,24 +19,7 @@ public class warps {
                         .executes(ctx -> {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            File warpfolder = new File("Lawaxi"+File.separator+"warps");
-                            if(warpfolder.exists())
-                            {
-                                String[] filelist = warpfolder.list();
-                                if(filelist.length!=0)
-                                {
-                                    String filelist2="§6地标列表：";
-                                    for(int i=0;i<filelist.length;i++)
-                                    {
-                                        filelist2+=sortName(filelist[i]);
-                                    }
-
-                                    player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)));
-
-                                    return 1;
-                                }
-                            }
-                            player.sendMessage(new LiteralText("§c没有可用的地标"));
+                            getWarps(player);
                             return 1;
                         })
         );
@@ -45,6 +29,29 @@ public class warps {
     {
         //去掉文件名结尾的".yml"
         return "§e"+name.substring(0,name.length()-4)+"§6,";
+    }
+
+    public static int getWarps(ServerPlayerEntity player)
+    {
+        File warpfolder = new File(list.warpfolder);
+        if(warpfolder.exists())
+        {
+            String[] filelist = warpfolder.list();
+            if(filelist.length!=0)
+            {
+                String filelist2="§6地标列表：";
+                for(int i=0;i<filelist.length;i++)
+                {
+                    filelist2+=sortName(filelist[i]);
+                }
+
+                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)));
+
+                return 0;
+            }
+        }
+        player.sendMessage(new LiteralText("§c没有可用的地标"));
+        return 0;
     }
 
 }

@@ -2,6 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import net.lawaxi.serverbase.shits.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,7 +20,7 @@ public class warp{
                                 .executes(ctx -> {
 
                                     String warpname=StringArgumentType.getString(ctx,"地标名称");
-                                    File warpfile = new File("Lawaxi"+File.separator+"warps"+File.separator+ warpname+".yml");
+                                    File warpfile = new File(list.warpfolder+File.separator+ warpname+".yml");
                                     if(warpfile.exists())
                                     {
                                         try{
@@ -80,7 +81,7 @@ public class warp{
                                     return 1;
                                 } ))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入目的地地标名称"));
+                            warps.getWarps(ctx.getSource().getPlayer());
                             return 1;
                         })
         );
