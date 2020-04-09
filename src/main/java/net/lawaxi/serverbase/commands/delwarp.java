@@ -2,6 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import net.lawaxi.serverbase.shits.list;
 import net.minecraft.command.arguments.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -17,7 +18,7 @@ public class delwarp {
                                 .executes(ctx -> {
 
                                     String warpname =StringArgumentType.getString(ctx,"地标名称");
-                                    File warpfile = new File("Lawaxi"+File.separator+"warps"+File.separator+ warpname+".yml");
+                                    File warpfile = new File(list.warpfolder+File.separator+ warpname+".yml");
                                     if(warpfile.exists())
                                     {
                                         if(warpfile.delete())

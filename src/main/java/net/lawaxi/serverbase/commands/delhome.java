@@ -2,6 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import net.lawaxi.serverbase.shits.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,7 +19,7 @@ public class delhome {
 
                                     ServerPlayerEntity player =ctx.getSource().getPlayer();
                                     String homename=StringArgumentType.getString(ctx,"家的名称");
-                                    File homefile = new File("Lawaxi"+File.separator+"homes"+File.separator+player.getEntityName() +File.separator+homename+".yml");
+                                    File homefile = new File(list.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
                                     if(homefile.exists())
                                     {
                                         if(homefile.delete())
