@@ -14,17 +14,19 @@ public class tparequest {
     public ServerPlayerEntity to;
     public boolean mode;//false为tpa true为tpahere
 
+    public boolean exist=true;
+
     public tparequest(){
 
         new Timer().schedule(new TimerTask() {
             public void run() {
-
-                me.sendMessage(new LiteralText("§c传送请求已失效，对方在30秒内没有接受"));
-                to.sendMessage(new LiteralText("§c来自 §4"+me.getEntityName()+" §c的传送请求已失效"));
-
+                if(exist) {
+                    me.sendMessage(new LiteralText("§c传送请求已失效，对方在60秒内没有接受"));
+                    to.sendMessage(new LiteralText("§c来自 §4" + me.getEntityName() + " §c的传送请求已失效"));
+                }
                 list.tparequests.remove(this);
                 this.cancel();
             }
-        }, 30000);
+        }, 60000);
     }
 }

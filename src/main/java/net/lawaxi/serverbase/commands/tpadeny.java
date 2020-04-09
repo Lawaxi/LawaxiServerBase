@@ -33,6 +33,10 @@ public class tpadeny {
 
     private static tparequest search(ServerPlayerEntity who)
     {
+        System.out.print(list.tparequests.size());
+        if(list.tparequests.size()==0)
+            return null;
+
         int i;
         tparequest now;
         for(i=list.tparequests.size()-1;i>=0;i--)
@@ -41,6 +45,7 @@ public class tpadeny {
 
             if(now.to.equals(who))
             {
+                list.tparequests.get(i).exist=false;
                 list.tparequests.remove(i);
                 return now;
             }

@@ -20,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends EntityMixin{
 
+    @Shadow public abstract Text getName();
+
     @Shadow public abstract String getEntityName();
     @Shadow public abstract GameProfile getGameProfile();
 

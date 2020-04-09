@@ -58,6 +58,7 @@ public class tpaccept {
 
             if(now.to.equals(who))
             {
+                list.tparequests.get(i).exist=false;
                 list.tparequests.remove(i);
                 return now;
             }

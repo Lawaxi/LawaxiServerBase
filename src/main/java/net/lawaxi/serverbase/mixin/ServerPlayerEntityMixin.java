@@ -37,14 +37,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntityMixin{
         //我这样写意味着只在进游戏时触发
 
         GameProfile a = getGameProfile();
-        String b = getEntityName();
         if(!list.lastlocation.containsKey(a))
         {
             list.lastlocation.put(a, createInfo(getServerWorld(),getBlockPos()));
-            for(int i=0;i<list.hello.length;i++)
-            {
-                sendMessage(new LiteralText(list.hello[i]));
-            }
+            sendMessage(new LiteralText(list.hello.replace("<玩家>",getEntityName())));
         }
     }
 

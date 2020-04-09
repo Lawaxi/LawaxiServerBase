@@ -21,7 +21,7 @@ public class list {
     public static String homefolder = configfolder+File.separator+"homes";
     */
 
-    public static String[] hello = new String[1];
+    public static String hello;
     public static boolean allowBackup = false;
     public static ArrayList<tparequest> tparequests = new ArrayList<>();
     public static Map<GameProfile,locationinfo> lastlocation = new HashMap<>();
@@ -42,29 +42,22 @@ public class list {
                 FileInputStream fos = new FileInputStream(helloconfig);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fos, "UTF-8"));
 
-                int lines = ((int)reader.lines().count());
-                hello = new String[lines];
-
-                for(int i=0;i<lines;i++)
-                {
-                    hello[i] = reader.readLine();
-                }
+                hello = reader.readLine();
             }
             catch(IOException e) {
             }
         }
         else
         {
-            System.out.println("玩家进入时会收到欢迎消息，您可以在 /Lawaxi/hello.yml 目录下更改！");
-            System.out.println("多行在文件中空行即可，不需要输入转义字符！");
+            System.out.println("玩家进入时会收到欢迎消息，您可以在 /Lawaxi/hello.yml 目录下更改！<玩家> 用于引用玩家名！");
 
             try
             {
                 BufferedWriter buffer = Files.newWriter(helloconfig, StandardCharsets.UTF_8);
-                buffer.write("§a你好！");
+                buffer.write("§a你好，<玩家>！");
                 buffer.close();
 
-                hello[0]="§a你好！";
+                hello="§a你好，<玩家>！";
             }
             catch(IOException e)
             {
