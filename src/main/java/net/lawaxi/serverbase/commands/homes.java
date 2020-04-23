@@ -1,7 +1,7 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -36,12 +36,12 @@ public class homes {
                     filelist2+=warps.sortName(filelist[i]);
                 }
 
-                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)));
+                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)),false);
 
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText("§c您没有可用的家"));
+        player.sendMessage(new LiteralText("§c您没有可用的家"),false);
         return 0;
     }
 }

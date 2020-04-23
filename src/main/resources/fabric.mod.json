@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "serverbase",
-  "version": "1.5.4",
+  "version": "1.6.0",
 
   "name": "Lawaxi Server Base",
   "description": "ServerBase Mod for Lawaxi",
@@ -9,8 +9,8 @@
     "Lawaxi"
   ],
   "contact": {
-    "homepage": "https://lawaxi.net/",
-    "sources": "https://lawaxi.net/"
+    "homepage": "https://github.com/Lawaxi/LawaxiServerBase",
+    "sources": "https://github.com/Lawaxi/LawaxiServerBase"
   },
 
   "license": "CC0-1.0",

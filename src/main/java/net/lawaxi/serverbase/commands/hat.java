@@ -34,11 +34,11 @@ public class hat {
                                 player.inventory.armor.set(3,lasthand);
                                 player.inventory.main.set(slot,lasthead);
 
-                                player.sendMessage(new LiteralText("§a享受你的新帽子吧~"));
+                                player.sendMessage(new LiteralText("§a享受你的新帽子吧~"),false);
                             }
                             else
                             {
-                                player.sendMessage(new LiteralText("§c您手中没有物品"));
+                                player.sendMessage(new LiteralText("§c您手中没有物品"),false);
                             }
                             return 1;
                         })

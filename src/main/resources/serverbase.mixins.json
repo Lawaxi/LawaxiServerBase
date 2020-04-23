@@ -12,7 +12,8 @@
     "CommandManagerMixin",
     "EntityMixin",
     "PlayerEntityMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,7 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -60,7 +60,8 @@ public class warp{
                                                             double z = Double.valueOf(sz);
 
                                                             //locationinfo.recordlocation(player);
-                                                            player.sendMessage(new LiteralText("§a正在传送..."));
+                                                            player.sendMessage(new LiteralText("§a正在传送..."),false);
+                                                            player.sendMessage(new LiteralText("§a"+warpname),true);
                                                             player.teleport(world,x,y,z,0,0);
 
                                                             return 1;
@@ -77,7 +78,7 @@ public class warp{
                                         }
                                     }
 
-                                    ctx.getSource().getPlayer().sendMessage(new LiteralText("§c地标§4 "+warpname+" §c不存在或已损坏"));
+                                    ctx.getSource().getPlayer().sendMessage(new LiteralText("§c地标§4 "+warpname+" §c不存在或已损坏"),false);
                                     return 1;
                                 } ))
                         .executes(ctx -> {

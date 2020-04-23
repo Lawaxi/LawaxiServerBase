@@ -19,7 +19,8 @@ public class spawn {
                             ServerWorld mainworld = player.getServer().getWorld(DimensionType.OVERWORLD);
                             BlockPos spawnpos = mainworld.getSpawnPos();
 
-                            player.sendMessage(new LiteralText("§a正在传送..."));
+                            player.sendMessage(new LiteralText("§a正在传送..."),false);
+                            player.sendMessage(new LiteralText("§a主城"),true);
                             player.teleport(mainworld,spawnpos.getX(),spawnpos.getY(),spawnpos.getZ(),0,0);
 
                             return 1;

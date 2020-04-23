@@ -3,17 +3,14 @@ package net.lawaxi.serverbase.commands;
 import com.google.common.io.Files;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.shits.list;
-import net.minecraft.command.arguments.EntityArgumentType;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import org.apache.logging.log4j.core.config.yaml.YamlConfiguration;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -34,7 +31,7 @@ public class setwarp {
                                     File warpfile = new File(list.warpfolder+File.separator+warpname +".yml");
                                     if(warpfile.exists())
                                     {
-                                        player.sendMessage(new LiteralText("§c地标§4 "+warpname+" §c已存在，请删除后再写入"));
+                                        player.sendMessage(new LiteralText("§c地标§4 "+warpname+" §c已存在，请删除后再写入"),false);
                                     }
                                     else
                                     {
@@ -42,7 +39,7 @@ public class setwarp {
                                             String world = getWorld(player.world,player.getServer());
                                             if(world.equals("shit"))
                                             {
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§c很抱歉，暂不支持除主世界 地狱 末地外的地标设置"));
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§c很抱歉，暂不支持除主世界 地狱 末地外的地标设置"),false);
                                             }
                                             else
                                             {
@@ -57,7 +54,8 @@ public class setwarp {
                                                 buffer.write(String.valueOf(player.getZ()));
 
                                                 buffer.close();
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a地标§2 "+warpname+" §a创建成功"));
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a地标§2 "+warpname+" §a创建成功"),false);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a"+warpname),true);
                                             }
                                         }
                                         catch (IOException e)
@@ -68,7 +66,7 @@ public class setwarp {
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要创建的地标名称"));
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要创建的地标名称"),false);
                             return 1;
                         })
         );

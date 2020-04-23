@@ -1,8 +1,8 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.shits.tparequest;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.tparequest;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,10 +15,10 @@ public class tpaccept {
         dispatcher.register(CommandManager.literal("tpaccept")
                         .executes(ctx -> {
                             ServerPlayerEntity who = ctx.getSource().getPlayer();
-                            tparequest request = search(who);
+                            tparequest request = tparequest.search(who);
                             if(request==null)
                             {
-                                who.sendMessage(new LiteralText("§c您没有待接受的请求"));
+                                who.sendMessage(new LiteralText("§c您没有待接受的请求"),false);
                             }
                             else
                             {
@@ -34,35 +34,14 @@ public class tpaccept {
                                     me = who;
                                 }
 
-                                me.sendMessage(new LiteralText("§a正在传送..."));
-                                to.sendMessage(new LiteralText("§a正在传送..."));
+                                me.sendMessage(new LiteralText("§a正在传送..."),false);
+                                to.sendMessage(new LiteralText("§a正在传送..."),false);
+                                me.sendMessage(new LiteralText("§a"+to.getEntityName()),true);
 
                                 me.teleport((ServerWorld)to.world,to.getX(),to.getY(),to.getZ(),to.yaw,to.pitch);
                             }
                             return 1;
                         })
         );
-    }
-
-    private static tparequest search(ServerPlayerEntity who)
-    {
-        System.out.print(list.tparequests.size());
-        if(list.tparequests.size()==0)
-            return null;
-
-        int i;
-        tparequest now;
-        for(i=list.tparequests.size()-1;i>=0;i--)
-        {
-            now=list.tparequests.get(i);
-
-            if(now.to.equals(who))
-            {
-                list.tparequests.get(i).exist=false;
-                list.tparequests.remove(i);
-                return now;
-            }
-        }
-        return null;
     }
 }

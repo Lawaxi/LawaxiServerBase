@@ -1,4 +1,4 @@
-package net.lawaxi.serverbase.shits;
+package net.lawaxi.serverbase.utils;
 
 import com.google.common.io.Files;
 import com.mojang.authlib.GameProfile;
@@ -22,14 +22,33 @@ public class list {
     */
 
     public static String hello;
+    public static String version;
     public static boolean allowBackup = false;
     public static ArrayList<tparequest> tparequests = new ArrayList<>();
     public static Map<GameProfile,locationinfo> lastlocation = new HashMap<>();
 
-    public list()
+    public static void init()
     {
         findhello();
         allowBackup();
+
+
+        try {
+            File versionfile = new File(configfolder, "version.inf");
+            if (!versionfile.exists()) {
+                versionfile.createNewFile();
+            }
+            if (new BufferedReader(new InputStreamReader(new FileInputStream(versionfile), "UTF-8")).readLine().equals(version))
+            {
+                BufferedWriter buffer = Files.newWriter(versionfile, StandardCharsets.UTF_8);
+                buffer.write(version);
+                buffer.close();
+            }
+        }
+        catch (IOException e)
+        {
+
+        }
     }
 
     public static void findhello()
@@ -49,7 +68,7 @@ public class list {
         }
         else
         {
-            System.out.println("玩家进入时会收到欢迎消息，您可以在 /Lawaxi/hello.yml 目录下更改！<玩家> 用于引用玩家名！");
+            System.out.println("玩家进入时会收到欢迎消息，您可以在 /Lawaxi/hello.yml 目录下更改！%player% 用于引用玩家名！");
 
             try
             {

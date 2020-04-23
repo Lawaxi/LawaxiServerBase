@@ -3,7 +3,7 @@ package net.lawaxi.serverbase.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.lawaxi.serverbase.commands.*;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Final;
@@ -27,7 +27,7 @@ public class CommandManagerMixin {
     private void onRegistry(boolean boolean_1, CallbackInfo ci) {
         System.out.println("我们十分期待来自 LawaxiServerBase 上的命令们可以帮助你的服务器.");
 
-        new list();
+        list.init();
 
         File configfolder = new File("Lawaxi");
         if(!configfolder.exists())
@@ -47,6 +47,7 @@ public class CommandManagerMixin {
         warps.register(dispatcher);
         homes.register(dispatcher);
         hat.register(dispatcher);
+        ops.register(dispatcher);
 
         //需要读配置的一些命令的注册
 
@@ -56,13 +57,15 @@ public class CommandManagerMixin {
             home.register(dispatcher);
             sethome.register(dispatcher);
 
-            if(list.allowBackup) {
-                saveme.register(dispatcher);
-                loadme.register(dispatcher);
-            }
         }
         catch(IOException e){
             System.out.print("LawaxiServerBase 注册命令时出现问题.");
+        }
+
+
+        if(list.allowBackup) {
+            saveme.register(dispatcher);
+            loadme.register(dispatcher);
         }
     }
 }

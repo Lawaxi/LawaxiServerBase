@@ -2,8 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.shits.list;
-import net.minecraft.command.arguments.EntityArgumentType;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
@@ -23,21 +22,21 @@ public class delwarp {
                                     {
                                         if(warpfile.delete())
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§a地标§2 "+warpname+" §a删除成功"));
+                                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§a地标§2 "+warpname+" §a删除成功"),false);
                                         }
                                         else
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c管理员禁止了地标§4 "+warpname+" §c的删除"));
+                                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c管理员禁止了地标§4 "+warpname+" §c的删除"),false);
                                         }
                                     }
                                     else
                                     {
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText("§c地标§4 "+warpname+" §c不存在"));
+                                        ctx.getSource().getPlayer().sendMessage(new LiteralText("§c地标§4 "+warpname+" §c不存在"),false);
                                     }
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要删除的地标名称"));
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要删除的地标名称"),false);
                             return 1;
                         })
         );

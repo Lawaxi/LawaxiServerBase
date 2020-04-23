@@ -3,7 +3,7 @@ package net.lawaxi.serverbase.commands;
 import com.google.common.io.Files;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -37,7 +37,7 @@ public class sethome {
                                     File homefile = new File(list.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
                                     if(homefile.exists())
                                     {
-                                        player.sendMessage(new LiteralText("§c家§4 "+homename+" §c已存在，请删除后再写入"));
+                                        player.sendMessage(new LiteralText("§c家§4 "+homename+" §c已存在，请删除后再写入"),false);
                                     }
                                     else
                                     {
@@ -45,7 +45,7 @@ public class sethome {
                                             String world = getWorld(player.world,player.getServer());
                                             if(world.equals("shit"))
                                             {
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§c很抱歉，暂不支持除主世界 地狱 末地外的家的设置"));
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§c很抱歉，暂不支持除主世界 地狱 末地外的家的设置"),false);
                                             }
                                             else
                                             {
@@ -60,7 +60,8 @@ public class sethome {
                                                 buffer.write(String.valueOf(player.getZ()));
 
                                                 buffer.close();
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a家§2 "+homename+" §a创建成功"));
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a家§2 "+homename+" §a创建成功"),false);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a"+homename),true);
                                             }
                                         }
                                         catch (IOException e)
@@ -71,7 +72,7 @@ public class sethome {
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要创建的家的名称"));
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要创建的家的名称"),false);
                             return 1;
                         })
         );

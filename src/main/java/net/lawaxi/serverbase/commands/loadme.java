@@ -1,14 +1,13 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import org.apache.commons.io.FileUtils;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
@@ -30,7 +29,7 @@ public class loadme {
 
                                 if(!worldsave.exists())
                                 {
-                                    player.sendMessage(new LiteralText("§c您没有要载入的备份"));
+                                    player.sendMessage(new LiteralText("§c您没有要载入的备份"),false);
                                 }
                                 else
                                 {
@@ -55,7 +54,7 @@ public class loadme {
                             }
                             else
                             {
-                                player.sendMessage(new LiteralText("§c很抱歉，备份功能需要白名单，请联系管理员获取"));
+                                player.sendMessage(new LiteralText("§c您不在允许备份的白名单中"),true);
                             }
                             return 1;
                         })

@@ -1,14 +1,11 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.shits.list;
+import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.io.File;
 
@@ -45,12 +42,12 @@ public class warps {
                     filelist2+=sortName(filelist[i]);
                 }
 
-                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)));
+                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)),false);
 
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText("§c没有可用的地标"));
+        player.sendMessage(new LiteralText("§c没有可用的地标"),false);
         return 0;
     }
 
