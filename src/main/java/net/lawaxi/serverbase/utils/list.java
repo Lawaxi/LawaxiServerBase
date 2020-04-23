@@ -22,7 +22,7 @@ public class list {
     */
 
     public static String hello;
-    public static String version;
+    public static String version = "1.6.0";
     public static boolean allowBackup = false;
     public static ArrayList<tparequest> tparequests = new ArrayList<>();
     public static Map<GameProfile,locationinfo> lastlocation = new HashMap<>();
@@ -36,9 +36,13 @@ public class list {
         try {
             File versionfile = new File(configfolder, "version.inf");
             if (!versionfile.exists()) {
+
                 versionfile.createNewFile();
+                BufferedWriter buffer = Files.newWriter(versionfile, StandardCharsets.UTF_8);
+                buffer.write(version);
+                buffer.close();
             }
-            if (new BufferedReader(new InputStreamReader(new FileInputStream(versionfile), "UTF-8")).readLine().equals(version))
+            else if (!new BufferedReader(new InputStreamReader(new FileInputStream(versionfile), "UTF-8")).readLine().equals(version))
             {
                 BufferedWriter buffer = Files.newWriter(versionfile, StandardCharsets.UTF_8);
                 buffer.write(version);
