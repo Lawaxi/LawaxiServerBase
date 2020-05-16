@@ -1,26 +1,30 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
-import net.lawaxi.serverbase.utils.list;
-import net.lawaxi.serverbase.utils.locationinfo;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
-public class back {
+public class bans {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
-        dispatcher.register(CommandManager.literal("back")
+        dispatcher.register(CommandManager.literal("bans")
                         .executes(ctx -> {
+
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                            locationinfo a = list.lastlocation.get(player.getGameProfile());
-                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
-                            player.teleport(a.world,a.position.getX(),a.position.getY(),a.position.getZ(),0,0);
+                            String out ="";
+                            for(String name : player.getServer().getPlayerManager().getUserBanList().getNames())
+                            {
+                                out+=name+",";
+                            }
 
+                            if(out!="")
+                                player.sendMessage(new LiteralText(messages.m.get(40)+out.substring(0,out.length()-1)),false);
+                            else
+                                player.sendMessage(new LiteralText(messages.m.get(41)),false);
                             return 1;
                         })
         );

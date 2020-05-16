@@ -1,6 +1,7 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.command.CommandManager;
@@ -23,9 +24,9 @@ public class ops {
                             }
 
                             if(out!="")
-                                player.sendMessage(new LiteralText("§eop列表：§6"+out.substring(0,out.length()-1)),false);
+                                player.sendMessage(new LiteralText(messages.m.get(38)+out.substring(0,out.length()-1)),false);
                             else
-                                player.sendMessage(new LiteralText("§e本服务器没有op."),false);
+                                player.sendMessage(new LiteralText(messages.m.get(39)),false);
                             return 1;
                         })
         );

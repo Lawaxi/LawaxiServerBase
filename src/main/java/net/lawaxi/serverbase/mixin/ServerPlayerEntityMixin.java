@@ -1,31 +1,24 @@
 package net.lawaxi.serverbase.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.lawaxi.serverbase.utils.HttpRequest;
+import net.lawaxi.serverbase.utils.checking;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.lawaxi.serverbase.utils.list;
 import net.lawaxi.serverbase.utils.locationinfo;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.Base64;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntityMixin{
+public abstract class ServerPlayerEntityMixin {
 
-    @Shadow public abstract ServerWorld getServerWorld();
-
-    @Shadow @Final public MinecraftServer server;
-
-    @Shadow public abstract void sendMessage(Text message, boolean actionBar);
 
     @Inject(at = @At("HEAD"), method = "onDeath")
     public void death(CallbackInfo info) {
@@ -35,19 +28,32 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntityMixin{
     @Inject(at = @At("HEAD"), method = "teleport")
     public void teleport(CallbackInfo info) {
         save();
+
+
+        if(((ServerPlayerEntity)(Object)this).interactionManager.getGameMode()== GameMode.SPECTATOR)
+        {
+            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText("§c您不能在观察者模式下传送!"),false);
+            info.cancel();
+        }
     }
+
+    @Inject(at = @At("HEAD"), method = "onDisconnect")
+    public void onLogOut(CallbackInfo info) {
+
+        GameProfile a = ((ServerPlayerEntity)(Object)this).getGameProfile();
+        if(list.lastlocation.containsKey(a))
+            list.lastlocation.remove(a);
+    }
+
 
     @Inject(at = @At("RETURN"), method = "onSpawn")
     public void onSpawn(CallbackInfo info) {
 
-        //这个方法好像是在进游戏和重生都会触发
-        //我这样写意味着只在进游戏时触发
-
-        GameProfile a = getGameProfile();
+        GameProfile a = ((ServerPlayerEntity)(Object)this).getGameProfile();
         if(!list.lastlocation.containsKey(a))
         {
-            list.lastlocation.put(a, createInfo(getServerWorld(),getBlockPos()));
-            sendMessage(new LiteralText(list.hello.replace("%player%",getEntityName())),true);
+            list.lastlocation.put(a, createInfo(((ServerPlayerEntity)(Object)this).getServerWorld(),((ServerPlayerEntity)(Object)this).getBlockPos()));
+            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText(messages.hello.replace("%player%",((ServerPlayerEntity)(Object)this).getEntityName())),true);
         }
 
         /*
@@ -70,9 +76,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntityMixin{
         }
         */
 
+        checking.check(((ServerPlayerEntity)(Object)this).getServer().getPlayerManager().getUserBanList());
+
     }
 
-
+    /*
     private static String getOnlineSkin(String name)
     {
         //1.获取玩家正版UUid
@@ -96,10 +104,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntityMixin{
             return "";
         else
             return profile;
-    }
+    }*/
 
     private void save(){
-        list.lastlocation.replace(getGameProfile(), createInfo(getServerWorld(),getBlockPos()));
+        list.lastlocation.replace(((ServerPlayerEntity)(Object)this).getGameProfile(), createInfo(((ServerPlayerEntity)(Object)this).getServerWorld(),((ServerPlayerEntity)(Object)this).getBlockPos()));
     }
 
     private static locationinfo createInfo(ServerWorld world,BlockPos pos)
@@ -109,6 +117,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntityMixin{
         a.world=world;
         return a;
     }
+
 }
 
 //这个里写的比较乱，主要为了实现/back操作的死亡、传送记录

@@ -1,8 +1,8 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.lawaxi.serverbase.utils.tparequest;
-import net.lawaxi.serverbase.utils.list;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,7 +18,7 @@ public class tpaccept {
                             tparequest request = tparequest.search(who);
                             if(request==null)
                             {
-                                who.sendMessage(new LiteralText("§c您没有待接受的请求"),false);
+                                who.sendMessage(new LiteralText(messages.m.get(34)),false);
                             }
                             else
                             {
@@ -34,9 +34,9 @@ public class tpaccept {
                                     me = who;
                                 }
 
-                                me.sendMessage(new LiteralText("§a正在传送..."),false);
-                                to.sendMessage(new LiteralText("§a正在传送..."),false);
-                                me.sendMessage(new LiteralText("§a"+to.getEntityName()),true);
+                                me.sendMessage(new LiteralText(messages.m.get(0)),false);
+                                to.sendMessage(new LiteralText(messages.m.get(0)),false);
+                                me.sendMessage(new LiteralText(messages.m.get(1).replace("%to%",to.getEntityName())),true);
 
                                 me.teleport((ServerWorld)to.world,to.getX(),to.getY(),to.getZ(),to.yaw,to.pitch);
                             }

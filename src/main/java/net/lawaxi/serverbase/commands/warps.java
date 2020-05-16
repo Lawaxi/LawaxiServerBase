@@ -1,7 +1,8 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,29 +26,29 @@ public class warps {
     public static String sortName(String name)
     {
         //去掉文件名结尾的".yml"
-        return "§e"+name.substring(0,name.length()-4)+"§6,";
+        return messages.m.get(5).replace("%name%",name.substring(0,name.length()-4))+messages.m.get(6);
     }
 
     public static int getWarps(ServerPlayerEntity player)
     {
-        File warpfolder = new File(list.warpfolder);
+        File warpfolder = new File(configs.warpfolder);
         if(warpfolder.exists())
         {
             String[] filelist = warpfolder.list();
             if(filelist.length!=0)
             {
-                String filelist2="§6地标列表：";
+                String filelist2= messages.m.get(4);
                 for(int i=0;i<filelist.length;i++)
                 {
                     filelist2+=sortName(filelist[i]);
                 }
 
-                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)),false);
+                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-messages.m.get(6).length())),false);
 
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText("§c没有可用的地标"),false);
+        player.sendMessage(new LiteralText(messages.m.get(7)),false);
         return 0;
     }
 

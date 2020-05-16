@@ -3,7 +3,8 @@ package net.lawaxi.serverbase.commands;
 import com.google.common.io.Files;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -21,23 +22,23 @@ public class sethome {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("sethome")
-                        .then(CommandManager.argument("家的名称", StringArgumentType.string())
+                        .then(CommandManager.argument(messages.m.get(17), StringArgumentType.string())
                                 .executes(ctx -> {
 
-                                    File homefolder = new File(list.homefolder);
+                                    File homefolder = new File(configs.homefolder);
                                     if(!homefolder.exists())
                                         homefolder.mkdir();
 
                                     ServerPlayerEntity player =ctx.getSource().getPlayer();
-                                    homefolder = new File(list.homefolder+File.separator+player.getEntityName());
+                                    homefolder = new File(configs.homefolder+File.separator+player.getEntityName());
                                     if(!homefolder.exists())
                                         homefolder.mkdir();
 
-                                    String homename=StringArgumentType.getString(ctx,"家的名称");
-                                    File homefile = new File(list.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
+                                    String homename=StringArgumentType.getString(ctx,messages.m.get(17));
+                                    File homefile = new File(configs.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
                                     if(homefile.exists())
                                     {
-                                        player.sendMessage(new LiteralText("§c家§4 "+homename+" §c已存在，请删除后再写入"),false);
+                                        player.sendMessage(new LiteralText(messages.m.get(18).replace("%name%",homename)),false);
                                     }
                                     else
                                     {
@@ -45,7 +46,7 @@ public class sethome {
                                             String world = getWorld(player.world,player.getServer());
                                             if(world.equals("shit"))
                                             {
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§c很抱歉，暂不支持除主世界 地狱 末地外的家的设置"),false);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(19)),false);
                                             }
                                             else
                                             {
@@ -60,19 +61,18 @@ public class sethome {
                                                 buffer.write(String.valueOf(player.getZ()));
 
                                                 buffer.close();
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a家§2 "+homename+" §a创建成功"),false);
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a"+homename),true);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(20).replace("%name%",homename)),false);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(1).replace("%to%",homename)),true);
                                             }
                                         }
                                         catch (IOException e)
                                         {
-                                            System.out.print("sethome 时出现问题.");
                                         }
                                     }
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要创建的家的名称"),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(21)),false);
                             return 1;
                         })
         );

@@ -1,6 +1,7 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,11 +18,10 @@ public class spawn {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
                             ServerWorld mainworld = player.getServer().getWorld(DimensionType.OVERWORLD);
-                            BlockPos spawnpos = mainworld.getSpawnPos();
 
-                            player.sendMessage(new LiteralText("§a正在传送..."),false);
-                            player.sendMessage(new LiteralText("§a主城"),true);
-                            player.teleport(mainworld,spawnpos.getX(),spawnpos.getY(),spawnpos.getZ(),0,0);
+                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
+                            player.sendMessage(new LiteralText(messages.m.get(22)),true);
+                            player.teleport(mainworld,mainworld.getLevelProperties().getSpawnX(),mainworld.getLevelProperties().getSpawnY(),mainworld.getLevelProperties().getSpawnZ(),0,0);
 
                             return 1;
                         })

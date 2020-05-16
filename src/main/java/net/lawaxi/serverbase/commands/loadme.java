@@ -1,7 +1,8 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,17 +25,17 @@ public class loadme {
                             if(player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile()))
                             {
                                 File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
-                                File worldsave = new File(list.backupfolder+File.separator + uuid + ".dat");
+                                File worldsave = new File(configs.backupfolder+File.separator + uuid + ".dat");
 
 
                                 if(!worldsave.exists())
                                 {
-                                    player.sendMessage(new LiteralText("§c您没有要载入的备份"),false);
+                                    player.sendMessage(new LiteralText(messages.m.get(59)),false);
                                 }
                                 else
                                 {
 
-                                    player.networkHandler.disconnect(new LiteralText("§a正在读取备份，请稍后连入"));
+                                    player.networkHandler.disconnect(new LiteralText(messages.m.get(60)));
 
                                     //延时模块，网上搜的代码，似乎还挺管用
                                     new Timer().schedule(new TimerTask() {
@@ -45,7 +46,6 @@ public class loadme {
                                             }
                                             catch (IOException e)
                                             {
-                                                System.out.print("loadme 时出现问题.");
                                             }
                                             this.cancel();
                                         }
@@ -54,7 +54,7 @@ public class loadme {
                             }
                             else
                             {
-                                player.sendMessage(new LiteralText("§c您不在允许备份的白名单中"),true);
+                                player.sendMessage(new LiteralText(messages.m.get(57)),true);
                             }
                             return 1;
                         })

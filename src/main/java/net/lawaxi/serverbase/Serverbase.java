@@ -2,7 +2,7 @@ package net.lawaxi.serverbase;
 
 import net.fabricmc.api.ModInitializer;
 
-public class ExampleMod implements ModInitializer {
+public class Serverbase implements ModInitializer {
 
 
 	@Override

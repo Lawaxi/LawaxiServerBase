@@ -10,8 +10,7 @@
   ],
   "server": [
     "CommandManagerMixin",
-    "EntityMixin",
-    "PlayerEntityMixin",
+    "ServerConfigListMixin",
     "ServerPlayerEntityMixin"
   ],
   "injectors": {

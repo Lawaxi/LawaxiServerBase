@@ -1,8 +1,10 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.tparequest;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.tparequest;
+import net.lawaxi.serverbase.utils.config.configs;
 import net.minecraft.command.arguments.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -13,15 +15,15 @@ public class tpa {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("tpa")
-                        .then(CommandManager.argument("玩家",EntityArgumentType.player())
+                        .then(CommandManager.argument(messages.m.get(23),EntityArgumentType.player())
                                 .executes(ctx -> {
-                                    ServerPlayerEntity to = EntityArgumentType.getPlayer(ctx,"玩家");
+                                    ServerPlayerEntity to = EntityArgumentType.getPlayer(ctx,messages.m.get(23));
                                     ServerPlayerEntity me = ctx.getSource().getPlayer();
                                     if(!tparequest.hasrequest(me))
                                     {
                                         if(to.equals(me))
                                         {
-                                            to.sendMessage(new LiteralText("§c您不能传送自己"),false);
+                                            to.sendMessage(new LiteralText(messages.m.get(24)),false);
                                         }
                                         else
                                         {
@@ -32,28 +34,28 @@ public class tpa {
 
                                             if(list.tparequests.add(newrequest))
                                             {
-                                                me.sendMessage(new LiteralText("§6已成功发送传送请求"),false);
+                                                me.sendMessage(new LiteralText(messages.m.get(25)),false);
 
-                                                to.sendMessage(new LiteralText("§e"+me.getEntityName()+" §6请求传送到你这里:"),false);
-                                                to.sendMessage(new LiteralText("§6同意请输入/tpaccept"),false);
-                                                to.sendMessage(new LiteralText("§6不同意请输入/tpadeny"),false);
+                                                to.sendMessage(new LiteralText(messages.m.get(26).replace("from",me.getEntityName())),false);
+                                                to.sendMessage(new LiteralText(messages.m.get(27)),false);
+                                                to.sendMessage(new LiteralText(messages.m.get(28)),false);
                                             }
                                             else
                                             {
-                                                me.sendMessage(new LiteralText("§c传送请求发送失败"),false);
+                                                me.sendMessage(new LiteralText(messages.m.get(29)),false);
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        me.sendMessage(new LiteralText("§c您已经有一条挂起的请求了"),false);
+                                        me.sendMessage(new LiteralText(messages.m.get(30)),false);
                                     }
                                     //-1 is failure, 0 is a pass and 1 is success.
                                     return 1;
                                 }))
                         // execute if there are no arguments.
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要传送的玩家"),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(31)),false);
                             return 1;
                         })
         );

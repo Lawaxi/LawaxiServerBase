@@ -1,7 +1,8 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -28,20 +29,19 @@ public class saveme {
                                 if(player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile()))
                                 {
                                     File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
-                                    File worldsave = new File(list.backupfolder+File.separator + uuid + ".dat");
+                                    File worldsave = new File(configs.backupfolder+File.separator + uuid + ".dat");
 
-                                    player.networkHandler.disconnect(new LiteralText("§a正在备份，请稍后连入"));
+                                    player.networkHandler.disconnect(new LiteralText(messages.m.get(58)));
                                     FileUtils.copyFile(world,worldsave);
                                 }
                                 else
                                 {
-                                    player.sendMessage(new LiteralText("§c您不在允许备份的白名单中"),true);
+                                    player.sendMessage(new LiteralText(messages.m.get(57)),true);
                                 }
 
                             }
                             catch (IOException e)
                             {
-                                System.out.print("saveme 时出现问题.");
                             }
 
                             return 1;

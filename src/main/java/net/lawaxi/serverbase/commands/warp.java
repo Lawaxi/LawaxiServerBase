@@ -2,7 +2,8 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,11 +17,11 @@ public class warp{
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) throws IOException
     {
         dispatcher.register(CommandManager.literal("warp")
-                        .then(CommandManager.argument("地标名称", StringArgumentType.string())
+                        .then(CommandManager.argument(messages.m.get(1), StringArgumentType.string())
                                 .executes(ctx -> {
 
-                                    String warpname=StringArgumentType.getString(ctx,"地标名称");
-                                    File warpfile = new File(list.warpfolder+File.separator+ warpname+".yml");
+                                    String warpname=StringArgumentType.getString(ctx,messages.m.get(2));
+                                    File warpfile = new File(configs.warpfolder+File.separator+ warpname+".yml");
                                     if(warpfile.exists())
                                     {
                                         try{
@@ -60,8 +61,8 @@ public class warp{
                                                             double z = Double.valueOf(sz);
 
                                                             //locationinfo.recordlocation(player);
-                                                            player.sendMessage(new LiteralText("§a正在传送..."),false);
-                                                            player.sendMessage(new LiteralText("§a"+warpname),true);
+                                                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
+                                                            player.sendMessage(new LiteralText(messages.m.get(1).replace("%to%",warpname)),true);
                                                             player.teleport(world,x,y,z,0,0);
 
                                                             return 1;
@@ -74,11 +75,10 @@ public class warp{
                                         }
                                         catch (IOException e)
                                         {
-                                            System.out.print("warp 时出现问题.");
                                         }
                                     }
 
-                                    ctx.getSource().getPlayer().sendMessage(new LiteralText("§c地标§4 "+warpname+" §c不存在或已损坏"),false);
+                                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(3).replace("%to%",warpname)),false);
                                     return 1;
                                 } ))
                         .executes(ctx -> {

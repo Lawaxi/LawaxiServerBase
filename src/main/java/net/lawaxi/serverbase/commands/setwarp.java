@@ -3,7 +3,8 @@ package net.lawaxi.serverbase.commands;
 import com.google.common.io.Files;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -19,19 +20,19 @@ public class setwarp {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("setwarp")
-                        .then(CommandManager.argument("地标名称", StringArgumentType.string())
+                        .then(CommandManager.argument(messages.m.get(8), StringArgumentType.string())
                                 .executes(ctx -> {
                                     ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                                    File warpfolder = new File(list.warpfolder);
+                                    File warpfolder = new File(configs.warpfolder);
                                     if(!warpfolder.exists())
                                         warpfolder.mkdir();
 
-                                    String warpname =StringArgumentType.getString(ctx,"地标名称");
-                                    File warpfile = new File(list.warpfolder+File.separator+warpname +".yml");
+                                    String warpname =StringArgumentType.getString(ctx,messages.m.get(8));
+                                    File warpfile = new File(configs.warpfolder+File.separator+warpname +".yml");
                                     if(warpfile.exists())
                                     {
-                                        player.sendMessage(new LiteralText("§c地标§4 "+warpname+" §c已存在，请删除后再写入"),false);
+                                        player.sendMessage(new LiteralText(messages.m.get(9).replace("%name%",warpname)),false);
                                     }
                                     else
                                     {
@@ -39,7 +40,7 @@ public class setwarp {
                                             String world = getWorld(player.world,player.getServer());
                                             if(world.equals("shit"))
                                             {
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§c很抱歉，暂不支持除主世界 地狱 末地外的地标设置"),false);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(10)),false);
                                             }
                                             else
                                             {
@@ -54,19 +55,18 @@ public class setwarp {
                                                 buffer.write(String.valueOf(player.getZ()));
 
                                                 buffer.close();
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a地标§2 "+warpname+" §a创建成功"),false);
-                                                ctx.getSource().getPlayer().sendMessage(new LiteralText("§a"+warpname),true);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(11).replace("%name%",warpname)),false);
+                                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(1).replace("%to%",warpname)),true);
                                             }
                                         }
                                         catch (IOException e)
                                         {
-                                            System.out.print("setwarp 时出现问题.");
                                         }
                                     }
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要创建的地标名称"),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(12)),false);
                             return 1;
                         })
         );

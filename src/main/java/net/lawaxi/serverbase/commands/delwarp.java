@@ -2,7 +2,8 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
@@ -13,30 +14,30 @@ public class delwarp {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("delwarp")
-                        .then(CommandManager.argument("地标名称", StringArgumentType.string())
+                        .then(CommandManager.argument(messages.m.get(42), StringArgumentType.string())
                                 .executes(ctx -> {
 
-                                    String warpname =StringArgumentType.getString(ctx,"地标名称");
-                                    File warpfile = new File(list.warpfolder+File.separator+ warpname+".yml");
+                                    String warpname =StringArgumentType.getString(ctx,messages.m.get(42));
+                                    File warpfile = new File(configs.warpfolder+File.separator+ warpname+".yml");
                                     if(warpfile.exists())
                                     {
                                         if(warpfile.delete())
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§a地标§2 "+warpname+" §a删除成功"),false);
+                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(43).replace("%name%",warpname)),false);
                                         }
                                         else
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c管理员禁止了地标§4 "+warpname+" §c的删除"),false);
+                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(44).replace("%name%",warpname)),false);
                                         }
                                     }
                                     else
                                     {
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText("§c地标§4 "+warpname+" §c不存在"),false);
+                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(45).replace("%name%",warpname)),false);
                                     }
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText("§c请输入要删除的地标名称"),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(46)),false);
                             return 1;
                         })
         );

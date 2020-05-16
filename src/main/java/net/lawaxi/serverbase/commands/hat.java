@@ -1,6 +1,7 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,11 +35,11 @@ public class hat {
                                 player.inventory.armor.set(3,lasthand);
                                 player.inventory.main.set(slot,lasthead);
 
-                                player.sendMessage(new LiteralText("§a享受你的新帽子吧~"),false);
+                                player.sendMessage(new LiteralText(messages.m.get(53)),false);
                             }
                             else
                             {
-                                player.sendMessage(new LiteralText("§c您手中没有物品"),false);
+                                player.sendMessage(new LiteralText(messages.m.get(52)),false);
                             }
                             return 1;
                         })

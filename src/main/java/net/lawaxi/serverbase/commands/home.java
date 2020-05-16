@@ -2,7 +2,8 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.lawaxi.serverbase.utils.list;
+import net.lawaxi.serverbase.utils.config.configs;
+import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,12 +17,12 @@ public class home {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) throws IOException
     {
         dispatcher.register(CommandManager.literal("home")
-                        .then(CommandManager.argument("家的名称", StringArgumentType.string())
+                        .then(CommandManager.argument(messages.m.get(13), StringArgumentType.string())
                                 .executes(ctx -> {
                                     ServerPlayerEntity player =ctx.getSource().getPlayer();
-                                    String homename =StringArgumentType.getString(ctx,"家的名称");
+                                    String homename =StringArgumentType.getString(ctx,messages.m.get(13));
                                     
-                                    File homefile = new File(list.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
+                                    File homefile = new File(configs.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
                                     if(homefile.exists())
                                     {
                                         try{
@@ -58,8 +59,8 @@ public class home {
                                                             double z = Double.valueOf(sz);
 
                                                             //locationinfo.recordlocation(player);
-                                                            player.sendMessage(new LiteralText("§a正在传送..."),false);
-                                                            player.sendMessage(new LiteralText("§a"+homename),true);
+                                                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
+                                                            player.sendMessage(new LiteralText(messages.m.get(1).replace("%name%",homename)),true);
                                                             player.teleport(world,x,y,z,0,0);
 
                                                             return 1;
@@ -70,13 +71,11 @@ public class home {
 
                                         }
                                         catch (IOException e)
-                                        {
-                                            System.out.print("home 时出现问题.");
-                                        }
+                                        { }
 
                                     }
 
-                                    ctx.getSource().getPlayer().sendMessage(new LiteralText("§c家§4 "+homename+" §c不存在或已损坏"),false);
+                                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(14).replace("%to%",homename)),false);
                                     return 1;
                                 } ))
                         .executes(ctx -> {
