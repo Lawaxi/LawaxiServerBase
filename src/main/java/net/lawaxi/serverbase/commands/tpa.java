@@ -36,7 +36,7 @@ public class tpa {
                                             {
                                                 me.sendMessage(new LiteralText(messages.m.get(25)),false);
 
-                                                to.sendMessage(new LiteralText(messages.m.get(26).replace("from",me.getEntityName())),false);
+                                                to.sendMessage(new LiteralText(messages.m.get(26).replace("%from%",me.getEntityName())),false);
                                                 to.sendMessage(new LiteralText(messages.m.get(27)),false);
                                                 to.sendMessage(new LiteralText(messages.m.get(28)),false);
                                             }

@@ -8,6 +8,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
+import net.minecraft.world.GameMode;
 
 public class tpaccept {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
@@ -22,23 +23,27 @@ public class tpaccept {
                             }
                             else
                             {
-                                ServerPlayerEntity me,to;
-                                if(!request.mode)
-                                {
-                                    me = request.me;
-                                    to = who;
+                                if(request.me.interactionManager.getGameMode()== GameMode.SPECTATOR){
+                                    who.sendMessage(new LiteralText(messages.m.get(62)),false);
+                                    request.me.sendMessage(new LiteralText(messages.m.get(63)),false);
                                 }
-                                else
-                                {
-                                    to = request.me;
-                                    me = who;
+                                else {
+
+                                    ServerPlayerEntity me, to;
+                                    if (!request.mode) {
+                                        me = request.me;
+                                        to = who;
+                                    } else {
+                                        to = request.me;
+                                        me = who;
+                                    }
+
+                                    me.sendMessage(new LiteralText(messages.m.get(0)), false);
+                                    to.sendMessage(new LiteralText(messages.m.get(0)), false);
+                                    me.sendMessage(new LiteralText(messages.m.get(1).replace("%to%", to.getEntityName())), true);
+
+                                    me.teleport((ServerWorld) to.world, to.getX(), to.getY(), to.getZ(), to.yaw, to.pitch);
                                 }
-
-                                me.sendMessage(new LiteralText(messages.m.get(0)),false);
-                                to.sendMessage(new LiteralText(messages.m.get(0)),false);
-                                me.sendMessage(new LiteralText(messages.m.get(1).replace("%to%",to.getEntityName())),true);
-
-                                me.teleport((ServerWorld)to.world,to.getX(),to.getY(),to.getZ(),to.yaw,to.pitch);
                             }
                             return 1;
                         })

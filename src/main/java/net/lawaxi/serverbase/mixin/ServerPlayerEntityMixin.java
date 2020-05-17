@@ -32,7 +32,7 @@ public abstract class ServerPlayerEntityMixin {
 
         if(((ServerPlayerEntity)(Object)this).interactionManager.getGameMode()== GameMode.SPECTATOR)
         {
-            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText("§c您不能在观察者模式下传送!"),false);
+            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText(messages.m.get(61)),false);
             info.cancel();
         }
     }

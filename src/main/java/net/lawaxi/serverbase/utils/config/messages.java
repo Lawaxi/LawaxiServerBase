@@ -9,7 +9,7 @@ public class messages {
 
     public static String hello = "你好，%player%！";
     public static final ArrayList<String> m = new ArrayList<>();
-    public static final short size = 61;
+    public static final short size = 64;
 
     public static void init(){
         if(!messages.exists()){
@@ -184,7 +184,6 @@ public class messages {
                 a.write("§a享受您的新帽子吧~");
                 a.newLine();
 
-
                 a.write("§6切换飞行模式为: §c关闭");
                 a.newLine();
 
@@ -204,6 +203,15 @@ public class messages {
                 a.newLine();
 
                 a.write("§a正在读取备份，请稍后连入");
+                a.newLine();
+
+                a.write("§c您不能在观察者模式下传送");
+                a.newLine();
+
+                a.write("§c对方正处于观察者模式中 无法接受传送请求");
+                a.newLine();
+
+                a.write("§c您处于观察者模式 对方正欲接受请求但被服务器驳回了");
                 a.newLine();
 
                 a.close();
