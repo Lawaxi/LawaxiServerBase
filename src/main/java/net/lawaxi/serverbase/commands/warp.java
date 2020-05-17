@@ -17,7 +17,7 @@ public class warp{
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) throws IOException
     {
         dispatcher.register(CommandManager.literal("warp")
-                        .then(CommandManager.argument(messages.m.get(1), StringArgumentType.string())
+                        .then(CommandManager.argument(messages.m.get(2), StringArgumentType.string())
                                 .executes(ctx -> {
 
                                     String warpname=StringArgumentType.getString(ctx,messages.m.get(2));

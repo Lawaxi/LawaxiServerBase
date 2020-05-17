@@ -60,7 +60,7 @@ public class home {
 
                                                             //locationinfo.recordlocation(player);
                                                             player.sendMessage(new LiteralText(messages.m.get(0)),false);
-                                                            player.sendMessage(new LiteralText(messages.m.get(1).replace("%name%",homename)),true);
+                                                            player.sendMessage(new LiteralText(messages.m.get(1).replace("%to%",homename)),true);
                                                             player.teleport(world,x,y,z,0,0);
 
                                                             return 1;

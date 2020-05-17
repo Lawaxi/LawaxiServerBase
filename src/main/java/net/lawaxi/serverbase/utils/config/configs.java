@@ -25,7 +25,7 @@ public class configs {
 
                 FileWriter fw = new FileWriter(config);
                 JsonObject shits = new JsonObject();
-                shits.addProperty("allowBackup", true);
+                shits.addProperty("allowBackup", false);
                 shits.addProperty("allowFly", false);
                 shits.addProperty("allowBack", true);
                 fw.write(shits.toString());
@@ -37,10 +37,10 @@ public class configs {
         else {
             try {
                 FileReader fr = new FileReader(config);
-                JsonObject shits = new GsonBuilder().create().fromJson(fr,JsonObject.class);
-                allowBackup = shits.get("allowBackup").getAsBoolean();
-                allowFly = shits.get("allowFly").getAsBoolean();
-                allowBack = shits.get("allowBack").getAsBoolean();
+                JsonObject shits2 = new GsonBuilder().create().fromJson(fr,JsonObject.class);
+                allowBackup = shits2.get("allowBackup").getAsBoolean();
+                allowFly = shits2.get("allowFly").getAsBoolean();
+                allowBack = shits2.get("allowBack").getAsBoolean();
                 fr.close();
             }
             catch (IOException e){}
