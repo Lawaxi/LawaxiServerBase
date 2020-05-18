@@ -1,7 +1,6 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.lawaxi.serverbase.utils.list;
 import net.lawaxi.serverbase.utils.tparequest;

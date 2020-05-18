@@ -43,7 +43,7 @@ public class sethome {
                                     else
                                     {
                                         try{
-                                            String world = getWorld(player.world,player.getServer());
+                                            String world = setwarp.getWorld(player.world,player.getServer());
                                             if(world.equals("shit"))
                                             {
                                                 ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(19)),false);
@@ -76,25 +76,5 @@ public class sethome {
                             return 1;
                         })
         );
-    }
-
-    private static String getWorld(World world, MinecraftServer server)
-    {
-        if(world.equals(server.getWorld(DimensionType.OVERWORLD)))
-        {
-            return "主世界";
-        }
-        else if(world.equals(server.getWorld(DimensionType.THE_NETHER)))
-        {
-            return "地狱";
-        }
-        else if(world.equals(server.getWorld(DimensionType.THE_END)))
-        {
-            return "末地";
-        }
-        else
-        {
-            return "shit";
-        }
     }
 }

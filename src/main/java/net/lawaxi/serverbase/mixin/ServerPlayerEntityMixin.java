@@ -53,7 +53,7 @@ public abstract class ServerPlayerEntityMixin {
         if(!list.lastlocation.containsKey(a))
         {
             list.lastlocation.put(a, createInfo(((ServerPlayerEntity)(Object)this).getServerWorld(),((ServerPlayerEntity)(Object)this).getBlockPos()));
-            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText(messages.hello.replace("%player%",((ServerPlayerEntity)(Object)this).getEntityName())),true);
+            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText(messages.hello.replace("%player%",((ServerPlayerEntity)(Object)this).getGameProfile().getName())),true);
         }
 
         /*
@@ -75,9 +75,7 @@ public abstract class ServerPlayerEntityMixin {
             }
         }
         */
-
         checking.check(((ServerPlayerEntity)(Object)this).getServer().getPlayerManager().getUserBanList());
-
     }
 
     /*

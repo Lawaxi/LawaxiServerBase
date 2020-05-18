@@ -72,19 +72,19 @@ public class setwarp {
         );
     }
 
-    private static String getWorld(World world, MinecraftServer server)
+    public static String getWorld(World world, MinecraftServer server)
     {
         if(world.equals(server.getWorld(DimensionType.OVERWORLD)))
         {
             return "主世界";
         }
-        else if(world.equals(server.getWorld(DimensionType.THE_NETHER)))
-        {
-            return "地狱";
-        }
         else if(world.equals(server.getWorld(DimensionType.THE_END)))
         {
             return "末地";
+        }
+        else if(world.equals(server.getWorld(DimensionType.THE_NETHER)))
+        {
+            return "地狱";
         }
         else
         {

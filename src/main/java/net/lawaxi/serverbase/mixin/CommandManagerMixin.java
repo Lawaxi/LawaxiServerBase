@@ -46,6 +46,7 @@ public class CommandManagerMixin {
         hat.register(dispatcher);
         ops.register(dispatcher);
         bans.register(dispatcher);
+        here.register(dispatcher);
 
         try{
             warp.register(dispatcher);
@@ -68,6 +69,9 @@ public class CommandManagerMixin {
         }
         if(configs.allowBack){
             back.register(dispatcher);
+        }
+        if(configs.allowSeed) {
+            seed.register(dispatcher);
         }
     }
 }

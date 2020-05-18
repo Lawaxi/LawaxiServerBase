@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.lawaxi.serverbase.utils.list;
 import net.lawaxi.serverbase.utils.tparequest;
-import net.lawaxi.serverbase.utils.config.configs;
 import net.minecraft.command.arguments.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
