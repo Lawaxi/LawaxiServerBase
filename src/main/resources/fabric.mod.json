@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "serverbase",
-  "version": "1.7.3bb",
+  "version": "1.8.0",
 
   "name": "Lawaxi Server Base",
   "description": "ServerBase Mod for Lawaxi",

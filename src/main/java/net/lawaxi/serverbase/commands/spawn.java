@@ -16,10 +16,10 @@ public class spawn {
                         .executes(ctx -> {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            ServerWorld mainworld = player.getServer().getWorld(DimensionType.OVERWORLD);
+                            ServerWorld mainworld = player.getServer().getWorld(DimensionType.OVERWORLD_REGISTRY_KEY);
 
-                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
-                            player.sendMessage(new LiteralText(messages.m.get(22)),true);
+                            player.sendMessage(new LiteralText(messages.get(1,player.getGameProfile().getName())),false);
+                            player.sendMessage(new LiteralText(messages.get(23,player.getGameProfile().getName())),true);
                             player.teleport(mainworld,mainworld.getLevelProperties().getSpawnX(),mainworld.getLevelProperties().getSpawnY(),mainworld.getLevelProperties().getSpawnZ(),0,0);
 
                             return 1;

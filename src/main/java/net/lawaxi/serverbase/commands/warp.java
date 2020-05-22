@@ -2,6 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import net.lawaxi.serverbase.utils.WorldDiscription;
 import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
@@ -9,7 +10,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.io.*;
 
@@ -17,11 +17,11 @@ public class warp{
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) throws IOException
     {
         dispatcher.register(CommandManager.literal("warp")
-                        .then(CommandManager.argument(messages.m.get(2), StringArgumentType.string())
+                        .then(CommandManager.argument(messages.get(3,"null"), StringArgumentType.string())
                                 .executes(ctx -> {
 
-                                    String warpname=StringArgumentType.getString(ctx,messages.m.get(2));
-                                    File warpfile = new File(configs.warpfolder+File.separator+ warpname+".yml");
+                                    String warpname = StringArgumentType.getString(ctx,messages.get(3,"null"));
+                                    File warpfile = new File(configs.warpfolder, warpname+".yml");
                                     if(warpfile.exists())
                                     {
                                         try{
@@ -41,28 +41,15 @@ public class warp{
                                                         {
 
                                                             ServerPlayerEntity player =ctx.getSource().getPlayer();
-
-                                                            ServerWorld world;
-                                                            if(worldx.equals("末地"))
-                                                            {
-                                                                world=player.getServer().getWorld(DimensionType.THE_END);
-                                                            }
-                                                            else if(worldx.equals("地狱"))
-                                                            {
-                                                                world=player.getServer().getWorld(DimensionType.THE_NETHER);
-                                                            }
-                                                            else
-                                                            {
-                                                                world=player.getServer().getWorld(DimensionType.OVERWORLD);
-                                                            }
+                                                            ServerWorld world = WorldDiscription.getWorld(worldx,player.getServer());
 
                                                             double x = Double.valueOf(sx);
                                                             double y = Double.valueOf(sy);
                                                             double z = Double.valueOf(sz);
 
                                                             //locationinfo.recordlocation(player);
-                                                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
-                                                            player.sendMessage(new LiteralText(messages.m.get(1).replace("%to%",warpname)),true);
+                                                            player.sendMessage(new LiteralText(messages.get(1,player.getGameProfile().getName())),false);
+                                                            player.sendMessage(new LiteralText(messages.get(2,player.getGameProfile().getName()).replace("%to%",warpname)),true);
                                                             player.teleport(world,x,y,z,0,0);
 
                                                             return 1;
@@ -78,7 +65,7 @@ public class warp{
                                         }
                                     }
 
-                                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(3).replace("%to%",warpname)),false);
+                                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(4,ctx.getSource().getPlayer().getGameProfile().getName()).replace("%to%",warpname)),false);
                                     return 1;
                                 } ))
                         .executes(ctx -> {

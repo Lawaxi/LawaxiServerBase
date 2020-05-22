@@ -18,7 +18,7 @@ public class back {
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
 
                             locationinfo a = list.lastlocation.get(player.getGameProfile());
-                            player.sendMessage(new LiteralText(messages.m.get(0)),false);
+                            player.sendMessage(new LiteralText(messages.get(1,player.getGameProfile().getName())),false);
                             player.teleport(a.world,a.position.getX(),a.position.getY(),a.position.getZ(),0,0);
 
                             return 1;

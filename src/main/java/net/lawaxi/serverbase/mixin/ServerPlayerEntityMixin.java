@@ -2,16 +2,17 @@ package net.lawaxi.serverbase.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.lawaxi.serverbase.utils.checking;
-import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.lawaxi.serverbase.utils.list;
 import net.lawaxi.serverbase.utils.locationinfo;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -19,6 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
 
+
+    @Shadow public abstract void playerTick();
+
+    @Shadow public abstract void sendMessage(Text message, boolean actionBar);
 
     @Inject(at = @At("HEAD"), method = "onDeath")
     public void death(CallbackInfo info) {
@@ -29,10 +34,10 @@ public abstract class ServerPlayerEntityMixin {
     public void teleport(CallbackInfo info) {
         save();
 
-
-        if(((ServerPlayerEntity)(Object)this).interactionManager.getGameMode()== GameMode.SPECTATOR)
+        ServerPlayerEntity player = ((ServerPlayerEntity)(Object)this);
+        if(player.interactionManager.getGameMode()== GameMode.SPECTATOR)
         {
-            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText(messages.m.get(61)),false);
+            player.sendMessage(new LiteralText(messages.get(62,player.getGameProfile().getName())),false);
             info.cancel();
         }
     }
@@ -50,10 +55,28 @@ public abstract class ServerPlayerEntityMixin {
     public void onSpawn(CallbackInfo info) {
 
         GameProfile a = ((ServerPlayerEntity)(Object)this).getGameProfile();
+
+
+
+        //语言初始化为null对应语言
+        if(messages.getLang(a.getName()).equalsIgnoreCase("null")){
+            String defaultLang = messages.getDefaultLang();
+            if(defaultLang!=null){
+                messages.setLang(a.getName(),defaultLang);
+            }
+        }
+
+
+        //出生位置和欢迎消息
         if(!list.lastlocation.containsKey(a))
         {
             list.lastlocation.put(a, createInfo(((ServerPlayerEntity)(Object)this).getServerWorld(),((ServerPlayerEntity)(Object)this).getBlockPos()));
-            ((ServerPlayerEntity)(Object)this).sendMessage(new LiteralText(messages.hello.replace("%player%",((ServerPlayerEntity)(Object)this).getGameProfile().getName())),true);
+
+            try {
+                sendMessage(new LiteralText(messages.get(0, a.getName()).replace("%player%", a.getName())), true);
+            }catch (NullPointerException e){
+
+            }
         }
 
         /*

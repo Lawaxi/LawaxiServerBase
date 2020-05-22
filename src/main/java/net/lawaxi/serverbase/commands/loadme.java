@@ -30,12 +30,12 @@ public class loadme {
 
                                 if(!worldsave.exists())
                                 {
-                                    player.sendMessage(new LiteralText(messages.m.get(59)),false);
+                                    player.sendMessage(new LiteralText(messages.get(60,player.getGameProfile().getName())),false);
                                 }
                                 else
                                 {
 
-                                    player.networkHandler.disconnect(new LiteralText(messages.m.get(60)));
+                                    player.networkHandler.disconnect(new LiteralText(messages.get(61,player.getGameProfile().getName())));
 
                                     //延时模块，网上搜的代码，似乎还挺管用
                                     new Timer().schedule(new TimerTask() {
@@ -54,7 +54,7 @@ public class loadme {
                             }
                             else
                             {
-                                player.sendMessage(new LiteralText(messages.m.get(57)),true);
+                                player.sendMessage(new LiteralText(messages.get(58,player.getGameProfile().getName())),true);
                             }
                             return 1;
                         })

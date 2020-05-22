@@ -6,6 +6,7 @@ import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
 import java.io.File;
@@ -14,30 +15,31 @@ public class delwarp {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("delwarp")
-                        .then(CommandManager.argument(messages.m.get(42), StringArgumentType.string())
+                        .then(CommandManager.argument(messages.get(43,"null"), StringArgumentType.string())
                                 .executes(ctx -> {
 
-                                    String warpname =StringArgumentType.getString(ctx,messages.m.get(42));
+                                    ServerPlayerEntity player = ctx.getSource().getPlayer();
+                                    String warpname =StringArgumentType.getString(ctx,messages.get(43,"null"));
                                     File warpfile = new File(configs.warpfolder+File.separator+ warpname+".yml");
                                     if(warpfile.exists())
                                     {
                                         if(warpfile.delete())
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(43).replace("%name%",warpname)),false);
+                                            player.sendMessage(new LiteralText(messages.get(44,player.getGameProfile().getName()).replace("%name%",warpname)),false);
                                         }
                                         else
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(44).replace("%name%",warpname)),false);
+                                            player.sendMessage(new LiteralText(messages.get(45,player.getGameProfile().getName()).replace("%name%",warpname)),false);
                                         }
                                     }
                                     else
                                     {
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(45).replace("%name%",warpname)),false);
+                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(46,player.getGameProfile().getName()).replace("%name%",warpname)),false);
                                     }
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(46)),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(47,ctx.getSource().getPlayer().getGameProfile().getName())),false);
                             return 1;
                         })
         );

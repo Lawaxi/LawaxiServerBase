@@ -31,12 +31,12 @@ public class saveme {
                                     File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
                                     File worldsave = new File(configs.backupfolder+File.separator + uuid + ".dat");
 
-                                    player.networkHandler.disconnect(new LiteralText(messages.m.get(58)));
+                                    player.networkHandler.disconnect(new LiteralText(messages.get(59,player.getGameProfile().getName())));
                                     FileUtils.copyFile(world,worldsave);
                                 }
                                 else
                                 {
-                                    player.sendMessage(new LiteralText(messages.m.get(57)),true);
+                                    player.sendMessage(new LiteralText(messages.get(58,player.getGameProfile().getName())),true);
                                 }
 
                             }

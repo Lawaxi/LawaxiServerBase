@@ -14,15 +14,15 @@ public class tpahere {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("tpahere")
-                        .then(CommandManager.argument(messages.m.get(23),EntityArgumentType.player())
+                        .then(CommandManager.argument(messages.get(24,"null"),EntityArgumentType.player())
                                 .executes(ctx -> {
-                                    ServerPlayerEntity to = EntityArgumentType.getPlayer(ctx,messages.m.get(23));
+                                    ServerPlayerEntity to = EntityArgumentType.getPlayer(ctx,messages.get(24,"null"));
                                     ServerPlayerEntity me =ctx.getSource().getPlayer();
                                     if(!tparequest.hasrequest(me))
                                     {
                                         if(to.equals(me))
                                         {
-                                            to.sendMessage(new LiteralText(messages.m.get(32)),false);
+                                            to.sendMessage(new LiteralText(messages.get(33,to.getGameProfile().getName())),false);
                                         }
                                         else
                                         {
@@ -33,28 +33,28 @@ public class tpahere {
 
                                             if(list.tparequests.add(newrequest))
                                             {
-                                                me.sendMessage(new LiteralText(messages.m.get(25)),false);
+                                                me.sendMessage(new LiteralText(messages.get(26,me.getGameProfile().getName())),false);
 
-                                                to.sendMessage(new LiteralText(messages.m.get(33).replace("%from%",me.getEntityName())),false);
-                                                to.sendMessage(new LiteralText(messages.m.get(27)),false);
-                                                to.sendMessage(new LiteralText(messages.m.get(28)),false);
+                                                to.sendMessage(new LiteralText(messages.get(34,to.getGameProfile().getName()).replace("%from%",me.getEntityName())),false);
+                                                to.sendMessage(new LiteralText(messages.get(28,to.getGameProfile().getName())),false);
+                                                to.sendMessage(new LiteralText(messages.get(29,to.getGameProfile().getName())),false);
                                             }
                                             else
                                             {
-                                                me.sendMessage(new LiteralText(messages.m.get(29)),false);
+                                                me.sendMessage(new LiteralText(messages.get(30,me.getGameProfile().getName())),false);
                                             }
                                         }
                                     }
                                     else
                                     {
-                                        me.sendMessage(new LiteralText(messages.m.get(30)),false);
+                                        me.sendMessage(new LiteralText(messages.get(31,me.getGameProfile().getName())),false);
                                     }
                                     //-1 is failure, 0 is a pass and 1 is success.
                                     return 1;
                                 }))
                         // execute if there are no arguments.
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(31)),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(32,ctx.getSource().getPlayer().getGameProfile().getName())),false);
                             return 1;
                         })
         );

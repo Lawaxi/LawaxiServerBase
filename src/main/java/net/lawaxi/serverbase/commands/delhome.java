@@ -15,31 +15,31 @@ public class delhome {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
         dispatcher.register(CommandManager.literal("delhome")
-                        .then(CommandManager.argument(messages.m.get(47), StringArgumentType.string())
+                        .then(CommandManager.argument(messages.get(48,"null"), StringArgumentType.string())
                                 .executes(ctx -> {
 
                                     ServerPlayerEntity player =ctx.getSource().getPlayer();
-                                    String homename=StringArgumentType.getString(ctx,messages.m.get(47));
+                                    String homename=StringArgumentType.getString(ctx,messages.get(48,"null"));
                                     File homefile = new File(configs.homefolder+File.separator+player.getEntityName() +File.separator+homename+".yml");
                                     if(homefile.exists())
                                     {
                                         if(homefile.delete())
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(48).replace("%name%",homename)),false);
+                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(49,player.getGameProfile().getName()).replace("%name%",homename)),false);
                                         }
                                         else
                                         {
-                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(49).replace("%name%",homename)),false);
+                                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(50,player.getGameProfile().getName()).replace("%name%",homename)),false);
                                         }
                                     }
                                     else
                                     {
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(50).replace("%name%",homename)),false);
+                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(51,player.getGameProfile().getName()).replace("%name%",homename)),false);
                                     }
                                     return 1;
                                 }))
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.m.get(51)),false);
+                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(52,ctx.getSource().getPlayer().getGameProfile().getName())),false);
                             return 1;
                         })
         );

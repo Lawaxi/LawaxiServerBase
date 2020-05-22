@@ -19,17 +19,17 @@ public class fly {
                             if(player.abilities.allowFlying){
                                 player.abilities.allowFlying=false;
                                 player.abilities.flying=false;
-                                player.sendMessage(new LiteralText(messages.m.get(54)),false);
+                                player.sendMessage(new LiteralText(messages.get(55,player.getGameProfile().getName())),false);
                             }
                             else{
                                 if(player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile())){
 
                                     player.abilities.allowFlying=true;
                                     player.abilities.flying=true;
-                                    player.sendMessage(new LiteralText(messages.m.get(55)),false);
+                                    player.sendMessage(new LiteralText(messages.get(56,player.getGameProfile().getName())),false);
                                 }
                                 else{
-                                    player.sendMessage(new LiteralText(messages.m.get(56)),false);
+                                    player.sendMessage(new LiteralText(messages.get(57,player.getGameProfile().getName())),false);
                                 }
                             }
                             return 1;

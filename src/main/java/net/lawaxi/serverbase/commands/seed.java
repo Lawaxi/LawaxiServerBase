@@ -19,17 +19,17 @@ public class seed {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                            if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.OVERWORLD)){
-                                player.sendMessage(new LiteralText(messages.m.get(64).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
+                            if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.OVERWORLD_REGISTRY_KEY)){
+                                player.sendMessage(new LiteralText(messages.get(65,player.getGameProfile().getName()).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
                             }
-                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_END)){
-                                player.sendMessage(new LiteralText(messages.m.get(66).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
+                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_END_REGISTRY_KEY)){
+                                player.sendMessage(new LiteralText(messages.get(67,player.getGameProfile().getName()).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
                             }
-                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_NETHER)){
-                                player.sendMessage(new LiteralText(messages.m.get(65).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
+                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_NETHER_REGISTRY_KEY)){
+                                player.sendMessage(new LiteralText(messages.get(66,player.getGameProfile().getName()).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
                             }
                             else{
-                                player.sendMessage(new LiteralText(messages.m.get(67).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
+                                player.sendMessage(new LiteralText(messages.get(68,player.getGameProfile().getName()).replace("%seed%",String.valueOf(ctx.getSource().getWorld().getSeed()))),false);
                             }
 
                             return 1;

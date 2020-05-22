@@ -35,11 +35,11 @@ public class hat {
                                 player.inventory.armor.set(3,lasthand);
                                 player.inventory.main.set(slot,lasthead);
 
-                                player.sendMessage(new LiteralText(messages.m.get(53)),false);
+                                player.sendMessage(new LiteralText(messages.get(54,player.getGameProfile().getName())),false);
                             }
                             else
                             {
-                                player.sendMessage(new LiteralText(messages.m.get(52)),false);
+                                player.sendMessage(new LiteralText(messages.get(53,player.getGameProfile().getName())),false);
                             }
                             return 1;
                         })

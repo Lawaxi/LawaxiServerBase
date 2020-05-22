@@ -24,9 +24,10 @@ public class ops {
                             }
 
                             if(out!="")
-                                player.sendMessage(new LiteralText(messages.m.get(38)+out.substring(0,out.length()-1)),false);
+                                player.sendMessage(new LiteralText(messages.get(39,player.getGameProfile().getName())
+                                        +out.substring(0,out.length()-1)),false);
                             else
-                                player.sendMessage(new LiteralText(messages.m.get(39)),false);
+                                player.sendMessage(new LiteralText(messages.get(40,player.getGameProfile().getName())),false);
                             return 1;
                         })
         );

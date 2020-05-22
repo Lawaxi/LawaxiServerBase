@@ -21,10 +21,13 @@ public class CommandManagerMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onRegistry(boolean isDedicatedServer, CallbackInfo info) {
 
-        System.out.println("我们十分期待来自 LawaxiServerBase 上的命令们可以帮助你的服务器.");
+        System.out.println("欢迎使用ServerBase！");
+        System.out.println("https://www.mcbbs.net/forum.php?mod=viewthread&tid=1031677");
+        System.out.println("https://github.com/Lawaxi/LawaxiServerBase");
 
-        configs.init();
-        messages.init();
+
+        new configs();
+        new messages();
 
         File configfolder = new File("Lawaxi");
         if(!configfolder.exists())
@@ -47,6 +50,7 @@ public class CommandManagerMixin {
         ops.register(dispatcher);
         bans.register(dispatcher);
         here.register(dispatcher);
+        lang.register(dispatcher);
 
         try{
             warp.register(dispatcher);

@@ -25,16 +25,16 @@ public class homes {
 
     public static int getHome(ServerPlayerEntity player)
     {
-        File homefolder = new File(configs.homefolder+File.separator+player.getEntityName());
+        File homefolder = new File(configs.homefolder,player.getEntityName());
         if(homefolder.exists())
         {
             String[] filelist = homefolder.list();
             if(filelist.length!=0)
             {
-                String filelist2= messages.m.get(15).replace("%player%",player.getEntityName());
+                String filelist2= messages.get(16,player.getGameProfile().getName()).replace("%player%",player.getEntityName());
                 for(int i=0;i<filelist.length;i++)
                 {
-                    filelist2+=warps.sortName(filelist[i]);
+                    filelist2+=warps.sortName(filelist[i],player.getGameProfile().getName());
                 }
 
                 player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)),false);
@@ -42,7 +42,7 @@ public class homes {
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText(messages.m.get(16)),false);
+        player.sendMessage(new LiteralText(messages.get(17,player.getGameProfile().getName())),false);
         return 0;
     }
 }

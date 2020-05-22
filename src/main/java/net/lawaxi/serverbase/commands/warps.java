@@ -8,8 +8,6 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
-import java.io.File;
-
 public class warps {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
     {
@@ -23,32 +21,31 @@ public class warps {
         );
     }
 
-    public static String sortName(String name)
+    public static String sortName(String name,String playername)
     {
         //去掉文件名结尾的".yml"
-        return messages.m.get(5).replace("%name%",name.substring(0,name.length()-4))+messages.m.get(6);
+        return messages.get(6,playername).replace("%name%",name.substring(0,name.length()-4))+messages.get(7,playername);
     }
 
     public static int getWarps(ServerPlayerEntity player)
     {
-        File warpfolder = new File(configs.warpfolder);
-        if(warpfolder.exists())
+        if(configs.warpfolder.exists())
         {
-            String[] filelist = warpfolder.list();
+            String[] filelist = configs.warpfolder.list();
             if(filelist.length!=0)
             {
-                String filelist2= messages.m.get(4);
-                for(int i=0;i<filelist.length;i++)
+                String filelist2= messages.get(5,player.getGameProfile().getName());
+                for(String name :filelist)
                 {
-                    filelist2+=sortName(filelist[i]);
+                    filelist2+=sortName(name,player.getGameProfile().getName());
                 }
 
-                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-messages.m.get(6).length())),false);
+                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-messages.get(7,player.getGameProfile().getName()).length())),false);
 
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText(messages.m.get(7)),false);
+        player.sendMessage(new LiteralText(messages.get(8,player.getGameProfile().getName())),false);
         return 0;
     }
 

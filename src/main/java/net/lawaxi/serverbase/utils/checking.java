@@ -23,10 +23,10 @@ public class checking {
                 //备份原始封禁列表
                 try {
                     int i=1;
-                    File back = new File(k.getFile().getParentFile(),"ban-player("+i+").json");
+                    File back = new File(k.getFile().getParentFile(),"banned-players-pre"+i+".json");
                     while(back.exists()){
                         i++;
-                        back = new File(k.getFile().getParentFile(),"ban-player("+i+").json");
+                        back = new File(k.getFile().getParentFile(),"banned-players-pre"+i+".json");
                     }
 
                     FileUtils.copyFile(k.getFile(), back);

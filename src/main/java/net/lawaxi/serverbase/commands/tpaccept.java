@@ -19,13 +19,13 @@ public class tpaccept {
                             tparequest request = tparequest.search(who);
                             if(request==null)
                             {
-                                who.sendMessage(new LiteralText(messages.m.get(34)),false);
+                                who.sendMessage(new LiteralText(messages.get(35,who.getGameProfile().getName())),false);
                             }
                             else
                             {
                                 if(request.me.interactionManager.getGameMode()== GameMode.SPECTATOR){
-                                    who.sendMessage(new LiteralText(messages.m.get(62)),false);
-                                    request.me.sendMessage(new LiteralText(messages.m.get(63)),false);
+                                    who.sendMessage(new LiteralText(messages.get(63,who.getGameProfile().getName())),false);
+                                    request.me.sendMessage(new LiteralText(messages.get(64,request.me.getGameProfile().getName())),false);
                                 }
                                 else {
 
@@ -38,9 +38,9 @@ public class tpaccept {
                                         me = who;
                                     }
 
-                                    me.sendMessage(new LiteralText(messages.m.get(0)), false);
-                                    to.sendMessage(new LiteralText(messages.m.get(0)), false);
-                                    me.sendMessage(new LiteralText(messages.m.get(1).replace("%to%", to.getEntityName())), true);
+                                    me.sendMessage(new LiteralText(messages.get(1,me.getGameProfile().getName())), false);
+                                    to.sendMessage(new LiteralText(messages.get(1,to.getGameProfile().getName())), false);
+                                    me.sendMessage(new LiteralText(messages.get(2,me.getGameProfile().getName()).replace("%to%", to.getEntityName())), true);
 
                                     me.teleport((ServerWorld) to.world, to.getX(), to.getY(), to.getZ(), to.yaw, to.pitch);
                                 }

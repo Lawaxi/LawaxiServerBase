@@ -17,14 +17,14 @@ public class tpadeny {
                             tparequest request = tparequest.search(who);
                             if(request==null)
                             {
-                                who.sendMessage(new LiteralText(messages.m.get(35)),false);
+                                who.sendMessage(new LiteralText(messages.get(36,who.getGameProfile().getName())),false);
                             }
                             else
                             {
                                 ServerPlayerEntity me = request.me;
                                 ServerPlayerEntity to = who;
-                                me.sendMessage(new LiteralText(messages.m.get(36)),false);
-                                to.sendMessage(new LiteralText(messages.m.get(37)),false);
+                                me.sendMessage(new LiteralText(messages.get(37,me.getGameProfile().getName())),false);
+                                to.sendMessage(new LiteralText(messages.get(38,to.getGameProfile().getName())),false);
                             }
                             return 1;
                         })

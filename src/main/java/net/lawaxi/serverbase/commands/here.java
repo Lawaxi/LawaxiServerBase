@@ -19,33 +19,45 @@ public class here {
                         .executes(ctx -> {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.OVERWORLD)){
+                            if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.OVERWORLD_REGISTRY_KEY)){
 
-                                player.getServer().getPlayerManager().broadcastChatMessage(new LiteralText(messages.m.get(68)
-                                        .replace("%player%",player.getGameProfile().getName())
-                                        .replace("%x%",deal(player.getX()))
-                                        .replace("%y%",deal(player.getY()))
-                                        .replace("%z%",deal(player.getZ()))),false);
+                                for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
+                                    PLA.sendMessage(
+                                            new LiteralText(messages.get(69,PLA.getGameProfile().getName())
+                                                    .replace("%x%",deal(player.getX()))
+                                                    .replace("%y%",deal(player.getY()))
+                                                    .replace("%z%",deal(player.getZ()))),false
+                                    );}
                             }
-                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_END)){
-                                player.getServer().getPlayerManager().broadcastChatMessage(new LiteralText(messages.m.get(70)
-                                        .replace("%player%",player.getGameProfile().getName())
-                                        .replace("%x%",deal(player.getX()))
-                                        .replace("%y%",deal(player.getY()))
-                                        .replace("%z%",deal(player.getZ()))),false);
+                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_END_REGISTRY_KEY)){
+
+                                for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
+                                    PLA.sendMessage(
+                                            new LiteralText(messages.get(71,PLA.getGameProfile().getName())
+                                                    .replace("%x%",deal(player.getX()))
+                                                    .replace("%y%",deal(player.getY()))
+                                                    .replace("%z%",deal(player.getZ()))),false
+                                    );}
                             }
-                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_NETHER)){
-                                player.getServer().getPlayerManager().broadcastChatMessage(new LiteralText(messages.m.get(69)
-                                        .replace("%player%",player.getGameProfile().getName())
-                                        .replace("%x%",deal(player.getX()))
-                                        .replace("%y%",deal(player.getY()))
-                                        .replace("%z%",deal(player.getZ()))),false);
+                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_NETHER_REGISTRY_KEY)){
+
+                                for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
+                                    PLA.sendMessage(
+                                            new LiteralText(messages.get(70,PLA.getGameProfile().getName())
+                                                    .replace("%x%",deal(player.getX()))
+                                                    .replace("%y%",deal(player.getY()))
+                                                    .replace("%z%",deal(player.getZ()))),false
+                                    );}
                             }
                             else{
-                                player.getServer().getPlayerManager().broadcastChatMessage(new LiteralText(messages.m.get(71)
-                                        .replace("%x%",deal(player.getX()))
-                                        .replace("%y%",deal(player.getY()))
-                                        .replace("%z%",deal(player.getZ()))),false);
+
+                                for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
+                                    PLA.sendMessage(
+                                            new LiteralText(messages.get(72,PLA.getGameProfile().getName())
+                                                    .replace("%x%",deal(player.getX()))
+                                                    .replace("%y%",deal(player.getY()))
+                                                    .replace("%z%",deal(player.getZ()))),false
+                                    );}
                             }
                             player.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING,60*20,1,false,false,false));
 

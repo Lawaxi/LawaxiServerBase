@@ -22,9 +22,9 @@ public class bans {
                             }
 
                             if(out!="")
-                                player.sendMessage(new LiteralText(messages.m.get(40)+out.substring(0,out.length()-1)),false);
+                                player.sendMessage(new LiteralText(messages.get(41,player.getGameProfile().getName())+out.substring(0,out.length()-1)),false);
                             else
-                                player.sendMessage(new LiteralText(messages.m.get(41)),false);
+                                player.sendMessage(new LiteralText(messages.get(42,player.getGameProfile().getName())),false);
                             return 1;
                         })
         );

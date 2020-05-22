@@ -6,10 +6,11 @@ import java.io.*;
 
 public class configs {
 
-    public static final String configfolder = "Lawaxi";
-    public static final String backupfolder =configfolder+File.separator+"datasaves";
-    public static final String warpfolder = "world"+File.separator+"warps";
-    public static final String homefolder = "world"+File.separator+"homes";
+    public static final File configfolder = new File("Lawaxi");
+    public static final File backupfolder = new File(configfolder,"datasaves");
+    public static final File warpfolder = new File("world","warps");
+    public static final File homefolder = new File("world","homes");
+    public static final File config = new File(configfolder,"config.json");
 
     public static boolean allowBackup = false;
     public static boolean allowFly = false;
@@ -17,9 +18,8 @@ public class configs {
     public static boolean allowSeed = true;
     public static boolean debug = false;
 
-    public static void init()
+    public configs()
     {
-        File config = new File(configfolder+File.separator+"config.json");
 
         if(!config.exists()) {
             try {
@@ -52,6 +52,7 @@ public class configs {
                     shits.addProperty("allowBack", allowBack);
                     shits.addProperty("allowSeed",allowSeed);
                     shits.addProperty("debugVersion",debug);
+
                     fw.write(shits.toString());
                     fw.close();
 
