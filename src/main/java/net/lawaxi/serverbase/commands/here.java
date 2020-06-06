@@ -2,15 +2,13 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.lawaxi.serverbase.utils.config.messages;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.World;
 
 public class here {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
@@ -19,7 +17,7 @@ public class here {
                         .executes(ctx -> {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.OVERWORLD_REGISTRY_KEY)){
+                            if(player.getServerWorld().getWorld()==player.getServer().getWorld(World.OVERWORLD)){
 
                                 for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
                                     PLA.sendMessage(
@@ -29,7 +27,7 @@ public class here {
                                                     .replace("%z%",deal(player.getZ()))),false
                                     );}
                             }
-                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_END_REGISTRY_KEY)){
+                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(World.END)){
 
                                 for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
                                     PLA.sendMessage(
@@ -39,7 +37,7 @@ public class here {
                                                     .replace("%z%",deal(player.getZ()))),false
                                     );}
                             }
-                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(DimensionType.THE_NETHER_REGISTRY_KEY)){
+                            else if(player.getServerWorld().getWorld()==player.getServer().getWorld(World.NETHER)){
 
                                 for(ServerPlayerEntity PLA :player.getServerWorld().getPlayers()){
                                     PLA.sendMessage(

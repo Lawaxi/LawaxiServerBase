@@ -19,7 +19,7 @@ import java.io.IOException;
 public class CommandManagerMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onRegistry(boolean isDedicatedServer, CallbackInfo info) {
+    private void onRegistry(CallbackInfo info) {
 
         System.out.println("欢迎使用ServerBase！");
         System.out.println("https://www.mcbbs.net/forum.php?mod=viewthread&tid=1031677");
