@@ -1,0 +1,80 @@
+§aHello, %player%！
+§aTeleporting...
+§a%to%
+Warp Name
+§cWarp§4 %to% §cis not exist or has been broken.
+§6Warp List:
+§e%name%
+§6,
+§cNo warp exist.
+Warp Name
+§cWarp§4 %name% §cis already exist, please delete it before redo.
+§cI'm sorry, you cannot create warps in worlds except overworld, the nether and the end.
+§aSuccessfully create a new warp§2 %name%§a.
+§cPlease enter a name for your warp.
+Home Name
+§cHome§4 %to% §cis not exist or has been broken.
+§6Homes of§e %player% §6:
+§cYou have no home exist.
+Home Name
+§cHome§4 %name% §cis already exist, please delete it before redo.
+§cI'm sorry, you cannot create homes in worlds except overworld, the nether and the end.
+§aSuccessfully create a new home§2 %name% §afor you.
+§cPlease enter a name for your home.
+§aLobby
+Player
+§cYou cannot teleport to yourself.
+§6Successfully send your teleport request.
+§e%from% §6requests to teleport to you:
+§6To accept, enter /tpaccept
+§6To refuse, enter /tpadeny
+§cFailed to send teleport request.
+§cYou've already sent a teleport request.
+§cPlease type in the player you want to teleport.
+§cYou cannot request yourself to teleport.
+§e%from% §6requests you to telport him:
+§cThere's no teleport requests for you to accept.
+§cThere's no teleport requests for you to refuse.
+§cYour request has been refused.
+§cSuccessfully refused.
+§eList of OP：§6
+§eNo OPs exists.
+§4List of player who has been banned：§6
+§eNo player has been banned.
+Warp Name
+§aSuccessfully delete warp§2 %name%§a.
+§cFailed on deleting warp§4 %name%§c.
+§cWarp§4 %name% §cis not exist.
+§cPlease type in the name of the warp you want to delete.
+Home Name
+§aSuccessfully delete home§2 %name%§a.
+§cFailed on deleting§4 %name%§c.
+§cHome§4 %name% §cis not exist.
+§cPlease type in the name of the home you want to delete.
+§cThere's no item in your hands.
+§aEnjoy your new hat!
+§6Fly-mode successfully changed to: §cOFF
+§6Fly-mode successfully changed to: §aON
+§cYou haven't got permission to fly.
+§cYou haven't got permission to backup.
+§aSaving...
+§cYou haven't saved your inventory yet.
+§aLoading...
+§cSpectators're not allowed to teleport.
+§cThey failed when they tried to accept your request as a spectator.
+§cThey cannot accept your teleport when you're a spectator.
+§e[World-seed] §6Overworld: %seed%
+§e[World-seed] §6The Nether: %seed%
+§e[World-seed] §6The End: %seed%
+§e[World-seed] §6An unknown world: %seed%
+§b@%player% §9in Overworld: §bx=%x% y=%y% z=%z%
+§b@%player% §9in The Nether: §bx=%x% y=%y% z=%z%
+§b@%player% §9in The End: §bx=%x% y=%y% z=%z%
+§b@%player% §9in an unknown world: §bx=%x% y=%y% z=%z%
+§9Language Supported:
+§b%lang%
+§9,
+§aSuccessfully changed your display language to §b%lang%§a.
+§cFailed to change your language.
+§cUnsupported language.
+§9Your recent language: §b%lang%
