@@ -1,9 +1,9 @@
-# Fabric Example Mod
+# LawaxiServerBase
 
-## Setup
+This mod is forked from Lawaxi/LawaxiServerBase and is modified by KaiXuan233.
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+## Usage
 
-## License
+Please notice that this mod only works in dedicated servers.
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Theoretically, any jars in the release page should work for any versions.
