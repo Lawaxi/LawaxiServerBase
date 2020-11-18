@@ -9,43 +9,37 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
 public class warps {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("warps")
-                        .executes(ctx -> {
+                .executes(ctx -> {
 
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            getWarps(player);
-                            return 1;
-                        })
+                    ServerPlayerEntity player = ctx.getSource().getPlayer();
+                    getWarps(player);
+                    return 1;
+                })
         );
     }
 
-    public static String sortName(String name,String playername)
-    {
+    public static String sortName(String name, String playername) {
         //去掉文件名结尾的".yml"
-        return messages.get(6,playername).replace("%name%",name.substring(0,name.length()-4))+messages.get(7,playername);
+        return messages.get(6, playername).replace("%name%", name.substring(0, name.length() - 4)) + messages.get(7, playername);
     }
 
-    public static int getWarps(ServerPlayerEntity player)
-    {
-        if(configs.warpfolder.exists())
-        {
+    public static int getWarps(ServerPlayerEntity player) {
+        if (configs.warpfolder.exists()) {
             String[] filelist = configs.warpfolder.list();
-            if(filelist.length!=0)
-            {
-                String filelist2= messages.get(5,player.getGameProfile().getName());
-                for(String name :filelist)
-                {
-                    filelist2+=sortName(name,player.getGameProfile().getName());
+            if (filelist.length != 0) {
+                String filelist2 = messages.get(5, player.getGameProfile().getName());
+                for (String name : filelist) {
+                    filelist2 += sortName(name, player.getGameProfile().getName());
                 }
 
-                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-messages.get(7,player.getGameProfile().getName()).length())),false);
+                player.sendMessage(new LiteralText(filelist2.substring(0, filelist2.length() - messages.get(7, player.getGameProfile().getName()).length())), false);
 
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText(messages.get(8,player.getGameProfile().getName())),false);
+        player.sendMessage(new LiteralText(messages.get(8, player.getGameProfile().getName())), false);
         return 0;
     }
 

@@ -6,7 +6,8 @@
   "name": "Lawaxi Server Base",
   "description": "ServerBase Mod for Lawaxi",
   "authors": [
-    "Lawaxi"
+    "Lawaxi",
+    "KaiXuan233"
   ],
   "contact": {
     "homepage": "https://github.com/Lawaxi/LawaxiServerBase",
@@ -28,7 +29,7 @@
 
   "depends": {
     "fabricloader": ">=0.7.9",
-    "minecraft": "1.16.x"
+    "minecraft": "*"
   },
   "suggests": {
     "flamingo": "*"

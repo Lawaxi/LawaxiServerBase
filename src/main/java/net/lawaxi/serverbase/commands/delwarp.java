@@ -12,36 +12,29 @@ import net.minecraft.text.LiteralText;
 import java.io.File;
 
 public class delwarp {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("delwarp")
-                        .then(CommandManager.argument(messages.get(43,"null"), StringArgumentType.string())
-                                .executes(ctx -> {
-
-                                    ServerPlayerEntity player = ctx.getSource().getPlayer();
-                                    String warpname =StringArgumentType.getString(ctx,messages.get(43,"null"));
-                                    File warpfile = new File(configs.warpfolder+File.separator+ warpname+".yml");
-                                    if(warpfile.exists())
-                                    {
-                                        if(warpfile.delete())
-                                        {
-                                            player.sendMessage(new LiteralText(messages.get(44,player.getGameProfile().getName()).replace("%name%",warpname)),false);
-                                        }
-                                        else
-                                        {
-                                            player.sendMessage(new LiteralText(messages.get(45,player.getGameProfile().getName()).replace("%name%",warpname)),false);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(46,player.getGameProfile().getName()).replace("%name%",warpname)),false);
-                                    }
-                                    return 1;
-                                }))
+                .then(CommandManager.argument(messages.get(43, "null"), StringArgumentType.string())
                         .executes(ctx -> {
-                            ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(47,ctx.getSource().getPlayer().getGameProfile().getName())),false);
+
+                            ServerPlayerEntity player = ctx.getSource().getPlayer();
+                            String warpname = StringArgumentType.getString(ctx, messages.get(43, "null"));
+                            File warpfile = new File(configs.warpfolder + File.separator + warpname + ".yml");
+                            if (warpfile.exists()) {
+                                if (warpfile.delete()) {
+                                    player.sendMessage(new LiteralText(messages.get(44, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                                } else {
+                                    player.sendMessage(new LiteralText(messages.get(45, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                                }
+                            } else {
+                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(46, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                            }
                             return 1;
-                        })
+                        }))
+                .executes(ctx -> {
+                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(47, ctx.getSource().getPlayer().getGameProfile().getName())), false);
+                    return 1;
+                })
         );
     }
 }

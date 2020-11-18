@@ -10,20 +10,19 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.world.World;
 
 public class spawn {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("spawn")
-                        .executes(ctx -> {
+                .executes(ctx -> {
 
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            ServerWorld mainworld = player.getServer().getWorld(World.OVERWORLD);
+                    ServerPlayerEntity player = ctx.getSource().getPlayer();
+                    ServerWorld mainworld = player.getServer().getWorld(World.OVERWORLD);
 
-                            player.sendMessage(new LiteralText(messages.get(1,player.getGameProfile().getName())),false);
-                            player.sendMessage(new LiteralText(messages.get(23,player.getGameProfile().getName())),true);
-                            player.teleport(mainworld,mainworld.getLevelProperties().getSpawnX(),mainworld.getLevelProperties().getSpawnY(),mainworld.getLevelProperties().getSpawnZ(),0,0);
+                    player.sendMessage(new LiteralText(messages.get(1, player.getGameProfile().getName())), false);
+                    player.sendMessage(new LiteralText(messages.get(23, player.getGameProfile().getName())), true);
+                    player.teleport(mainworld, mainworld.getLevelProperties().getSpawnX(), mainworld.getLevelProperties().getSpawnY(), mainworld.getLevelProperties().getSpawnZ(), 0, 0);
 
-                            return 1;
-                        })
+                    return 1;
+                })
         );
     }
 }

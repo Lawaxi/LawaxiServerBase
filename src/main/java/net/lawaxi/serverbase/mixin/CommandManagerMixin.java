@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
-import java.io.IOException;
 
 @Mixin(CommandManager.class)
 public class CommandManagerMixin {
@@ -26,14 +25,14 @@ public class CommandManagerMixin {
         System.out.println("https://github.com/Lawaxi/LawaxiServerBase");
 
         File configfolder = new File("Lawaxi");
-        if(!configfolder.exists())
+        if (!configfolder.exists())
             configfolder.mkdir();
 
         new configs();
         new messages();
 
 
-        CommandDispatcher<ServerCommandSource> dispatcher  = ((CommandManager)(Object)this).getDispatcher();
+        CommandDispatcher<ServerCommandSource> dispatcher = ((CommandManager) (Object) this).getDispatcher();
 
         tpa.register(dispatcher);
         tpahere.register(dispatcher);
@@ -52,30 +51,27 @@ public class CommandManagerMixin {
         here.register(dispatcher);
         lang.register(dispatcher);
 
-        try{
-            warp.register(dispatcher);
-            setwarp.register(dispatcher);
-            home.register(dispatcher);
-            sethome.register(dispatcher);
+        warp.register(dispatcher);
+        setwarp.register(dispatcher);
+        home.register(dispatcher);
+        sethome.register(dispatcher);
 
-        }
-        catch(IOException e){
-            System.out.print("LawaxiServerBase 注册命令时出现问题.");
-        }
-
-
-        if(configs.allowBackup) {
+        if (configs.allowBackup) {
             saveme.register(dispatcher);
             loadme.register(dispatcher);
         }
-        if(configs.allowFly) {
+        if (configs.allowFly) {
             fly.register(dispatcher);
         }
-        if(configs.allowBack){
+        if (configs.allowBack) {
             back.register(dispatcher);
         }
-        if(configs.allowSeed) {
+        if (configs.allowSeed) {
             seed.register(dispatcher);
+        }
+        if (configs.freecam) {
+            c.register(dispatcher);
+            s.register(dispatcher);
         }
     }
 }

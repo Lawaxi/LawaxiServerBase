@@ -1,10 +1,10 @@
 package net.lawaxi.serverbase.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.lawaxi.serverbase.utils.checking;
+import net.lawaxi.serverbase.utils.List;
+import net.lawaxi.serverbase.utils.LocationInfo;
+import net.lawaxi.serverbase.utils.PseudoFreecam;
 import net.lawaxi.serverbase.utils.config.messages;
-import net.lawaxi.serverbase.utils.list;
-import net.lawaxi.serverbase.utils.locationinfo;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
@@ -21,84 +21,49 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerPlayerEntityMixin {
 
 
-    @Shadow public abstract void playerTick();
+    private static LocationInfo createInfo(ServerWorld world, BlockPos pos) {
+        LocationInfo a = new LocationInfo();
+        a.position = pos;
+        a.world = world;
+        return a;
+    }
 
-    @Shadow public abstract void sendMessage(Text message, boolean actionBar);
+    @Shadow
+    public abstract void playerTick();
+
+    @Shadow
+    public abstract void sendMessage(Text message, boolean actionBar);
 
     @Inject(at = @At("HEAD"), method = "onDeath")
     public void death(CallbackInfo info) {
         save();
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        if (PseudoFreecam.actualLocation.containsKey(player.getGameProfile())) {
+            c2s(player);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "teleport")
     public void teleport(CallbackInfo info) {
         save();
 
-        ServerPlayerEntity player = ((ServerPlayerEntity)(Object)this);
-        if(player.interactionManager.getGameMode()== GameMode.SPECTATOR)
-        {
-            player.sendMessage(new LiteralText(messages.get(62,player.getGameProfile().getName())),false);
-            info.cancel();
+        ServerPlayerEntity player = ((ServerPlayerEntity) (Object) this);
+        if (player.interactionManager.getGameMode() == GameMode.SPECTATOR) {
+            if (!PseudoFreecam.actualLocation.containsKey(player.getGameProfile())) {
+                player.sendMessage(new LiteralText(messages.get(62, player.getGameProfile().getName())), false);
+                info.cancel();
+            }
         }
     }
 
     @Inject(at = @At("HEAD"), method = "onDisconnect")
     public void onLogOut(CallbackInfo info) {
-
-        GameProfile a = ((ServerPlayerEntity)(Object)this).getGameProfile();
-        if(list.lastlocation.containsKey(a))
-            list.lastlocation.remove(a);
-    }
-
-
-    @Inject(at = @At("RETURN"), method = "onSpawn")
-    public void onSpawn(CallbackInfo info) {
-
-        GameProfile a = ((ServerPlayerEntity)(Object)this).getGameProfile();
-
-
-
-        //语言初始化为null对应语言
-        if(messages.getLang(a.getName()).equalsIgnoreCase("null")){
-            String defaultLang = messages.getDefaultLang();
-            if(defaultLang!=null){
-                messages.setLang(a.getName(),defaultLang);
-            }
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        GameProfile a = player.getGameProfile();
+        List.lastlocation.remove(a);
+        if (PseudoFreecam.actualLocation.containsKey(a)) {
+            c2s(player);
         }
-
-
-        //出生位置和欢迎消息
-        if(!list.lastlocation.containsKey(a))
-        {
-            list.lastlocation.put(a, createInfo(((ServerPlayerEntity)(Object)this).getServerWorld(),((ServerPlayerEntity)(Object)this).getBlockPos()));
-
-            try {
-                sendMessage(new LiteralText(messages.get(0, a.getName()).replace("%player%", a.getName())), true);
-            }catch (NullPointerException e){
-
-            }
-        }
-
-        /*
-        //盗版服的正版皮肤恢复
-        if(!getServer().isOnlineMode())
-        {
-            //获取正版uuid
-            String uuid = HttpRequest.sendGet("https://api.mojang.com/users/profiles/minecraft/"+getEntityName(),"");
-            uuid = uuid.substring(uuid.indexOf("id\":\""),uuid.indexOf("\",\"name")).replace("id\":\"","");
-
-            if(!uuid.equals("")) {
-
-                System.out.println("成功获取"+getEntityName()+"正版UUID："+uuid);
-
-                GameProfile profile = new GameProfile(UUID.fromString(uuid.substring(0,8)+"-"+uuid.substring(8,12)+"-"+uuid.substring(12,16)+"-"+uuid.substring(16,20)+"-"+uuid.substring(20)),getEntityName());
-                profile=SkullBlockEntity.loadProperties(profile);
-                getGameProfile().getProperties().asMap().put("textures",profile.getProperties().asMap().get("textures"));
-
-            }
-        }
-        */
-        checking.check(((ServerPlayerEntity)(Object)this).getServer().getPlayerManager().getUserBanList());
     }
 
     /*
@@ -127,16 +92,70 @@ public abstract class ServerPlayerEntityMixin {
             return profile;
     }*/
 
-    private void save(){
-        list.lastlocation.replace(((ServerPlayerEntity)(Object)this).getGameProfile(), createInfo(((ServerPlayerEntity)(Object)this).getServerWorld(),((ServerPlayerEntity)(Object)this).getBlockPos()));
+    @Inject(at = @At("RETURN"), method = "onSpawn")
+    public void onSpawn(CallbackInfo info) {
+
+        GameProfile a = ((ServerPlayerEntity) (Object) this).getGameProfile();
+
+
+        //语言初始化为null对应语言
+        if (messages.getLang(a.getName()).equalsIgnoreCase("null")) {
+            String defaultLang = messages.getDefaultLang();
+            if (defaultLang != null) {
+                messages.setLang(a.getName(), defaultLang);
+            }
+        }
+
+
+        //出生位置和欢迎消息
+        if (!List.lastlocation.containsKey(a)) {
+            List.lastlocation.put(a, createInfo(((ServerPlayerEntity) (Object) this).getServerWorld(), ((ServerPlayerEntity) (Object) this).getBlockPos()));
+
+            try {
+                sendMessage(new LiteralText(messages.get(0, a.getName()).replace("%player%", a.getName())), true);
+            } catch (NullPointerException ignored) {
+
+            }
+        }
+
+        /*
+        //盗版服的正版皮肤恢复
+        if(!getServer().isOnlineMode())
+        {
+            //获取正版uuid
+            String uuid = HttpRequest.sendGet("https://api.mojang.com/users/profiles/minecraft/"+getEntityName(),"");
+            uuid = uuid.substring(uuid.indexOf("id\":\""),uuid.indexOf("\",\"name")).replace("id\":\"","");
+
+            if(!uuid.equals("")) {
+
+                System.out.println("成功获取"+getEntityName()+"正版UUID："+uuid);
+
+                GameProfile profile = new GameProfile(UUID.fromString(uuid.substring(0,8)+"-"+uuid.substring(8,12)+"-"+uuid.substring(12,16)+"-"+uuid.substring(16,20)+"-"+uuid.substring(20)),getEntityName());
+                profile=SkullBlockEntity.loadProperties(profile);
+                getGameProfile().getProperties().asMap().put("textures",profile.getProperties().asMap().get("textures"));
+
+            }
+        }
+        */
+//        checking.check(((ServerPlayerEntity) (Object) this).getServer().getPlayerManager().getUserBanList());
     }
 
-    private static locationinfo createInfo(ServerWorld world,BlockPos pos)
-    {
-        locationinfo a = new locationinfo();
-        a.position=pos;
-        a.world=world;
-        return a;
+    private void save() {
+        List.lastlocation.replace(((ServerPlayerEntity) (Object) this).getGameProfile(), createInfo(((ServerPlayerEntity) (Object) this).getServerWorld(), ((ServerPlayerEntity) (Object) this).getBlockPos()));
+    }
+
+    private void c2s(ServerPlayerEntity player) { // turn off freecam
+        LocationInfo actualLocation = PseudoFreecam.actualLocation.get(player.getGameProfile());
+        player.teleport(
+                actualLocation.world,
+                actualLocation.position.getX(),
+                actualLocation.position.getY(),
+                actualLocation.position.getZ(),
+                actualLocation.yaw,
+                actualLocation.pitch);
+        player.setGameMode(GameMode.SURVIVAL);
+//        player.sendMessage(new LiteralText("§6Freecam Off"), false);
+        PseudoFreecam.actualLocation.remove(player.getGameProfile());
     }
 
 }

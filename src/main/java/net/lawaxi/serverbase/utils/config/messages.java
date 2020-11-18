@@ -10,18 +10,18 @@ import java.util.Set;
 
 public class messages {
 
-    private static final File pl1 = new File("Lawaxi","playerlanguages.json");
-    private static final File messagesFolder = new File("Lawaxi","messages");
+    private static final File pl1 = new File("Lawaxi", "playerlanguages.json");
+    private static final File messagesFolder = new File("Lawaxi", "messages");
 
     private static final ArrayList<String> m = new ArrayList<>();
-    private static final HashMap<String,ArrayList<String>> m1 = new HashMap<>();
+    private static final HashMap<String, ArrayList<String>> m1 = new HashMap<>();
 
     private static JsonObject pl2 = null;
 
-    public messages(){
+    public messages() {
 
         //玩家语言读取
-        if(!pl1.exists()) {
+        if (!pl1.exists()) {
 
             try {
                 pl1.createNewFile();
@@ -29,12 +29,12 @@ public class messages {
                 BufferedWriter w2 = new BufferedWriter(w1);
 
                 JsonObject w3 = new JsonObject();
-                w3.addProperty("null","zhsp");
+                w3.addProperty("null", "zhsp");
                 w2.write(w3.toString());
                 w2.close();
                 w1.close();
 
-            }catch (IOException e){
+            } catch (IOException ignored) {
 
             }
         }
@@ -42,38 +42,33 @@ public class messages {
 
         try {
             FileReader r1 = new FileReader(pl1);
-            pl2 =  new GsonBuilder().create().fromJson(r1, JsonObject.class);
+            pl2 = new GsonBuilder().create().fromJson(r1, JsonObject.class);
             r1.close();
 
-        }catch (IOException e){
-            pl2=null;
+        } catch (IOException e) {
+            pl2 = null;
         }
 
 
         //默认三个语言文件生成
-        if(!messagesFolder.exists()){
+        if (!messagesFolder.exists()) {
             messagesFolder.mkdir();
 
 
-            String[] l = {"zh","zhsp","en"};
-            for(int i=0;i<l.length;i++){
-
-
-                String name = l[i];
-                InputStream input = this.getClass().getResourceAsStream("/messages/"+name+".yml");
-
+            String[] l = {"zh", "zhsp", "en"};
+            for (String name : l) {
+                InputStream input = this.getClass().getResourceAsStream("/messages/" + name + ".yml");
                 try {
                     int index;
                     byte[] bytes = new byte[1024];
-                    FileOutputStream downloadFile = new FileOutputStream(new File(messagesFolder,name+".yml"));
+                    FileOutputStream downloadFile = new FileOutputStream(new File(messagesFolder, name + ".yml"));
                     while ((index = input.read(bytes)) != -1) {
                         downloadFile.write(bytes, 0, index);
                         downloadFile.flush();
                     }
                     downloadFile.close();
                     input.close();
-
-                }catch (IOException e){
+                } catch (IOException ignored) {
 
                 }
 
@@ -82,7 +77,7 @@ public class messages {
         }
 
 
-        //默认放bug语言
+        //默认防bug语言
         m.add("§a你好，%player%！");
         m.add("§a正在传送...");
         m.add("§a%to%");
@@ -147,7 +142,7 @@ public class messages {
         m.add("§a正在读取备份，请稍后连入");
         m.add("§c您不能在观察者模式下传送");
         m.add("§c对方正处于观察者模式中 无法接受传送请求");
-        m.add("§c您处于观察者模式 对方正欲接受请求但被服务器驳回了");
+        m.add("§c您处于观察者模式 对方接受了请求但被服务器驳回了");
         m.add("§e[种子] §6主世界: %seed%");
         m.add("§e[种子] §6地狱: %seed%");
         m.add("§e[种子] §6末地: %seed%");
@@ -194,7 +189,7 @@ public class messages {
                         q3.close();
                         q2.close();
 
-                        m1.put(langname.toString(), (ArrayList<String>) l1919.clone());
+                        m1.put(langname, (ArrayList<String>) l1919.clone());
                         System.out.println("成功加载语言: " + langname);
 
                     } catch (Exception e1) {
@@ -206,20 +201,20 @@ public class messages {
 
 
             //输出全部语言的第0行
-            if(configs.debug){
-                for(String key :m1.keySet()){
-                    System.out.println("[Lang] Language Debug: "+key+" 的第0行为 "+m1.get(key).get(0));
+            if (configs.debug) {
+                for (String key : m1.keySet()) {
+                    System.out.println("[Lang] Language Debug: " + key + " 的第0行为 " + m1.get(key).get(0));
                 }
             }
 
 
-        }catch (NullPointerException e){
-            System.out.println("[Lang] 语言文件夹读取失败: "+messagesFolder.getAbsolutePath());
+        } catch (NullPointerException e) {
+            System.out.println("[Lang] 语言文件夹读取失败: " + messagesFolder.getAbsolutePath());
         }
 
     }
 
-    public static String get(int index, String playername){
+    public static String get(int index, String playername) {
 
         try {
             //玩家语言配置加载错误
@@ -229,48 +224,45 @@ public class messages {
             }
 
             //没有附加语言文件
-            if (m1.keySet().size()==0) {
+            if (m1.keySet().size() == 0) {
                 System.out.println("[Lang] Lang Info: 没有任何可用的语言文件");
                 return m.get(index);
             }
 
             String lang = getLang(playername);
-            if(configs.debug){
-                System.out.println("[Lang] Lang Info: "+playername+" 的语言是 "+lang);
+            if (configs.debug) {
+                System.out.println("[Lang] Lang Info: " + playername + " 的语言是 " + lang);
             }
 
             //玩家没有选择语言
-            if (lang.equalsIgnoreCase("null"))
-            {
-                if(configs.debug) {
+            if (lang.equalsIgnoreCase("null")) {
+                if (configs.debug) {
                     System.out.println("[Lang] Null Found: " + playername + " 的语言并未设置");
                 }
                 return m.get(index);
-            }
-            else
+            } else
                 return m1.get(lang).get(index);
-        }
-        catch (NullPointerException e){
-            System.out.println("语言 "+index+" 不存在，试图获取时出错，请联系插件作者！");
+        } catch (NullPointerException e) {
+            System.out.println("语言 " + index + " 不存在，试图获取时出错，请联系插件作者！");
             return "";
         }
     }
 
-    public static String getLang(String playername){
+    public static String getLang(String playername) {
 
         //玩家语言配置加载错误
-        if(pl2==null) {
+        if (pl2 == null) {
             return "null";
         }
 
         //玩家没有设置语言
-        if(!pl2.has(playername)) {
+        if (!pl2.has(playername)) {
             return "null";
         }
 
         //玩家语言不支持
         String lang = pl2.get(playername).getAsString();
-        if(!m1.containsKey(lang)){
+        if (!m1.containsKey(lang)) {
             return "null";
         }
 
@@ -278,16 +270,16 @@ public class messages {
     }
 
 
-    public static boolean setLang(String playername,String name){
+    public static boolean setLang(String playername, String name) {
 
-        if(pl2==null)
+        if (pl2 == null)
             return false;
 
-        if(pl2.has(playername)){
+        if (pl2.has(playername)) {
             pl2.remove(playername);
         }
 
-        pl2.addProperty(playername,name);
+        pl2.addProperty(playername, name);
 
         try {
             FileWriter wn1 = new FileWriter(pl1);
@@ -298,30 +290,27 @@ public class messages {
 
             return true;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public static Set<String> getLangList(){
+    public static Set<String> getLangList() {
         return m1.keySet();
     }
 
-    public static String getDefaultLang(){
+    public static String getDefaultLang() {
 
         String nullLang = getLang("null");
-        if(nullLang.equalsIgnoreCase("null"))
-        {
+        if (nullLang.equalsIgnoreCase("null")) {
 
-            if(messagesFolder.list().length==0){
+            if (messagesFolder.list().length == 0) {
                 return null;
-            }
-            else{
+            } else {
                 String prename = messagesFolder.list()[0];
-                return prename.substring(0,prename.indexOf("."));
+                return prename.substring(0, prename.indexOf("."));
             }
-        }
-        else
+        } else
             return nullLang;
     }
 }

@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TitleScreen.class)
 public class ClientMixin {
-	@Inject(at = @At("HEAD"), method = "init()V")
-	private void init(CallbackInfo info) {
-		System.out.println("感谢您使用 LawaxiServerBase");
-		System.out.println("但是您知道的，这个mod是安装在服务端上用的");
+    @Inject(at = @At("HEAD"), method = "init()V")
+    private void init(CallbackInfo info) {
+        System.out.println("感谢您使用 LawaxiServerBase");
+        System.out.println("但是您知道的，这个mod是安装在服务端上用的");
     }
 }

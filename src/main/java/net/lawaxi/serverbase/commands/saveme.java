@@ -15,39 +15,34 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class saveme {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("saveme")
-                        .executes(ctx -> {
+                .executes(ctx -> {
 
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            String uuid = player.getUuid().toString();
+                    ServerPlayerEntity player = ctx.getSource().getPlayer();
+                    String uuid = player.getUuid().toString();
 
-                            if(player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile()))
-                            {
-                                File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
-                                File worldsave = new File(configs.backupfolder,  uuid + ".dat");
-                                player.networkHandler.disconnect(new LiteralText(messages.get(59,player.getGameProfile().getName())));
+                    if (player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile())) {
+                        File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
+                        File worldsave = new File(configs.backupfolder, uuid + ".dat");
+                        player.networkHandler.disconnect(new LiteralText(messages.get(59, player.getGameProfile().getName())));
 
-                                new Timer().schedule(new TimerTask() {
-                                    public void run() {
-                                        try{
-                                            worldsave.delete();
-                                            FileUtils.copyFile(world,worldsave);
-                                        }
-                                        catch (IOException e)
-                                        {
-                                        }
-                                        this.cancel();
-                                    }
-                                }, 1000);
-                            }else
-                            {
-                                player.sendMessage(new LiteralText(messages.get(58,player.getGameProfile().getName())),true);
+                        new Timer().schedule(new TimerTask() {
+                            public void run() {
+                                try {
+                                    worldsave.delete();
+                                    FileUtils.copyFile(world, worldsave);
+                                } catch (IOException ignored) {
+                                }
+                                this.cancel();
                             }
+                        }, 1000);
+                    } else {
+                        player.sendMessage(new LiteralText(messages.get(58, player.getGameProfile().getName())), true);
+                    }
 
-                            return 1;
-                            })
+                    return 1;
+                })
         );
     }
 }

@@ -8,25 +8,23 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
 public class bans {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("bans")
-                        .executes(ctx -> {
+                .executes(ctx -> {
 
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
+                    ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                            String out ="";
-                            for(String name : player.getServer().getPlayerManager().getUserBanList().getNames())
-                            {
-                                out+=name+",";
-                            }
+                    String out = "";
+                    for (String name : player.getServer().getPlayerManager().getUserBanList().getNames()) {
+                        out += name + ",";
+                    }
 
-                            if(out!="")
-                                player.sendMessage(new LiteralText(messages.get(41,player.getGameProfile().getName())+out.substring(0,out.length()-1)),false);
-                            else
-                                player.sendMessage(new LiteralText(messages.get(42,player.getGameProfile().getName())),false);
-                            return 1;
-                        })
+                    if (!out.equals(""))
+                        player.sendMessage(new LiteralText(messages.get(41, player.getGameProfile().getName()) + out.substring(0, out.length() - 1)), false);
+                    else
+                        player.sendMessage(new LiteralText(messages.get(42, player.getGameProfile().getName())), false);
+                    return 1;
+                })
         );
     }
 }
