@@ -13,15 +13,15 @@ public class fly {
                 .executes(ctx -> {
 
                     ServerPlayerEntity player = ctx.getSource().getPlayer();
-                    if (player.abilities.allowFlying) {
-                        player.abilities.allowFlying = false;
-                        player.abilities.flying = false;
+                    if (player.getAbilities().allowFlying) {
+                        player.getAbilities().allowFlying = false;
+                        player.getAbilities().flying = false;
                         player.sendMessage(new LiteralText(messages.get(55, player.getGameProfile().getName())), false);
                     } else {
                         if (player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile())) {
 
-                            player.abilities.allowFlying = true;
-                            player.abilities.flying = true;
+                            player.getAbilities().allowFlying = true;
+                            player.getAbilities().flying = true;
                             player.sendMessage(new LiteralText(messages.get(56, player.getGameProfile().getName())), false);
                         } else {
                             player.sendMessage(new LiteralText(messages.get(57, player.getGameProfile().getName())), false);

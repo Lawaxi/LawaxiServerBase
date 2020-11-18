@@ -17,13 +17,13 @@ public class hat {
                     ServerPlayerEntity player = ctx.getSource().getPlayer();
 
                     ItemStack lasthand = player.getMainHandStack();
-                    int slot = player.inventory.main.indexOf(lasthand);
+                    int slot = player.getInventory().main.indexOf(lasthand);
 
                     if (!lasthand.getItem().equals(Items.AIR)) {
-                        ItemStack lasthead = player.inventory.armor.get(3);
+                        ItemStack lasthead = player.getInventory().armor.get(3);
 
-                        player.inventory.armor.set(3, lasthand);
-                        player.inventory.main.set(slot, lasthead);
+                        player.getInventory().armor.set(3, lasthand);
+                        player.getInventory().main.set(slot, lasthead);
 
                         player.sendMessage(new LiteralText(messages.get(54, player.getGameProfile().getName())), false);
                     } else {
