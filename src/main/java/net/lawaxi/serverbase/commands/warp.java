@@ -21,7 +21,7 @@ public class warp {
                         .executes(ctx -> {
 
                             String warpname = StringArgumentType.getString(ctx, messages.get(3, "null"));
-                            File warpfile = new File(configs.warpfolder, warpname + ".yml");
+                            File warpfile = new File(configs.warpFolder, warpname + ".yml");
                             if (warpfile.exists()) {
                                 try {
                                     FileInputStream fos = new FileInputStream(warpfile);

@@ -26,8 +26,8 @@ public class warps {
     }
 
     public static int getWarps(ServerPlayerEntity player) {
-        if (configs.warpfolder.exists()) {
-            String[] filelist = configs.warpfolder.list();
+        if (configs.warpFolder.exists()) {
+            String[] filelist = configs.warpFolder.list();
             if (filelist.length != 0) {
                 String filelist2 = messages.get(5, player.getGameProfile().getName());
                 for (String name : filelist) {

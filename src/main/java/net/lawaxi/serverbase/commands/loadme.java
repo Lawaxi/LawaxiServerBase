@@ -23,7 +23,7 @@ public class loadme {
 
                     if (player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile())) {
                         File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
-                        File worldsave = new File(configs.backupfolder, uuid + ".dat");
+                        File worldsave = new File(configs.inventoryBackupFolder, uuid + ".dat");
 
 
                         if (!worldsave.exists()) {

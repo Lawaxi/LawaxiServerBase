@@ -22,7 +22,7 @@ public class home {
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
                             String homename = StringArgumentType.getString(ctx, messages.get(14, "null"));
 
-                            File homefile = new File(configs.homefolder, player.getEntityName() + File.separator + homename + ".yml");
+                            File homefile = new File(configs.homeFolder, player.getEntityName() + File.separator + homename + ".yml");
                             if (homefile.exists()) {
                                 try {
                                     FileInputStream fos = new FileInputStream(homefile);

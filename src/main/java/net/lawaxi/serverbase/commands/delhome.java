@@ -19,7 +19,7 @@ public class delhome {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
                             String homename = StringArgumentType.getString(ctx, messages.get(48, "null"));
-                            File homefile = new File(configs.homefolder + File.separator + player.getEntityName() + File.separator + homename + ".yml");
+                            File homefile = new File(configs.homeFolder + File.separator + player.getEntityName() + File.separator + homename + ".yml");
                             if (homefile.exists()) {
                                 if (homefile.delete()) {
                                     ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(49, player.getGameProfile().getName()).replace("%name%", homename)), false);

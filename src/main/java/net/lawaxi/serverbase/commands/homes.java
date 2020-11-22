@@ -23,7 +23,7 @@ public class homes {
     }
 
     public static int getHome(ServerPlayerEntity player) {
-        File homefolder = new File(configs.homefolder, player.getEntityName());
+        File homefolder = new File(configs.homeFolder, player.getEntityName());
         if (homefolder.exists()) {
             String[] filelist = homefolder.list();
             if (filelist.length != 0) {

@@ -10,11 +10,13 @@ import java.io.IOException;
 
 public class configs {
 
-    public static final File configfolder = new File("Lawaxi");
-    public static final File backupfolder = new File(configfolder, "datasaves");
-    public static final File warpfolder = new File("world", "warps");
-    public static final File homefolder = new File("world", "homes");
-    public static final File config = new File(configfolder, "config.json");
+    public static final File worldFolder = new File("world");
+    public static final File configFolder = new File("Lawaxi");
+    public static final File inventoryBackupFolder = new File(configFolder, "inventoryBackups");
+    public static final File worldBackupFolder = new File("backups");
+    public static final File warpFolder = new File(worldFolder, "warps");
+    public static final File homeFolder = new File(worldFolder, "homes");
+    public static final File config = new File(configFolder, "config.json");
 
     public static boolean allowBackup = false;
     public static boolean allowFly = false;

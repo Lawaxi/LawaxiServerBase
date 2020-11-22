@@ -23,7 +23,7 @@ public class setwarp {
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                            File warpfolder = configs.warpfolder;
+                            File warpfolder = configs.warpFolder;
                             if (!warpfolder.exists())
                                 warpfolder.mkdir();
 

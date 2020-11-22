@@ -19,7 +19,7 @@ public class delwarp {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
                             String warpname = StringArgumentType.getString(ctx, messages.get(43, "null"));
-                            File warpfile = new File(configs.warpfolder + File.separator + warpname + ".yml");
+                            File warpfile = new File(configs.warpFolder + File.separator + warpname + ".yml");
                             if (warpfile.exists()) {
                                 if (warpfile.delete()) {
                                     player.sendMessage(new LiteralText(messages.get(44, player.getGameProfile().getName()).replace("%name%", warpname)), false);

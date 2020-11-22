@@ -22,16 +22,16 @@ public class sethome {
                 .then(CommandManager.argument(messages.get(18, "null"), StringArgumentType.string())
                         .executes(ctx -> {
 
-                            if (!configs.homefolder.exists())
-                                configs.homefolder.mkdir();
+                            if (!configs.homeFolder.exists())
+                                configs.homeFolder.mkdir();
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            File homefolder = new File(configs.homefolder, player.getEntityName());
+                            File homefolder = new File(configs.homeFolder, player.getEntityName());
                             if (!homefolder.exists())
                                 homefolder.mkdir();
 
                             String homename = StringArgumentType.getString(ctx, messages.get(18, "null"));
-                            File homefile = new File(configs.homefolder, player.getEntityName() + File.separator + homename + ".yml");
+                            File homefile = new File(configs.homeFolder, player.getEntityName() + File.separator + homename + ".yml");
                             if (homefile.exists()) {
                                 player.sendMessage(new LiteralText(messages.get(19, player.getGameProfile().getName()).replace("%name%", homename)), false);
                             } else {

@@ -24,7 +24,7 @@ public class saveme {
 
                     if (player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile())) {
                         File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
-                        File worldsave = new File(configs.backupfolder, uuid + ".dat");
+                        File worldsave = new File(configs.inventoryBackupFolder, uuid + ".dat");
                         player.networkHandler.disconnect(new LiteralText(messages.get(59, player.getGameProfile().getName())));
 
                         new Timer().schedule(new TimerTask() {
