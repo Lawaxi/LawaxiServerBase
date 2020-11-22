@@ -25,45 +25,70 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class backup {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralArgumentBuilder<ServerCommandSource> literalArgumentBuilder = literal("backup")
-                .then(literal("make")
-                        .then(argument("comment", StringArgumentType.word())
-                                .suggests((commandContext, suggestionsBuilder) -> CommandSource.suggestMatching(new String[]{getTime()}, suggestionsBuilder)))
-                        .executes(ctx -> {
-                            tell(ctx, StringArgumentType.getString(ctx, "comment"));
-                            return 1;
-                        }))
-                .executes(ctx -> makeBackup(ctx, getTime()))
-                .then(literal("list").executes(ctx -> {
-                    tell(ctx, "list");
-                    return 1;
-                }))
-                .then(literal("del").executes(ctx -> {
-                    tell(ctx, "del");
-                    return 1;
-                }))
-                .then(literal("back").executes(ctx -> {
-                    tell(ctx, "back");
-                    return 1;
-                }))
-                .then(literal("confirm").executes(ctx -> {
-                    tell(ctx, "confirm");
-                    return 1;
-                }))
-                .then(literal("abort").executes(ctx -> {
-                    tell(ctx, "abort");
-                    return 1;
-                }))
-                .then(literal("help").executes(ctx -> {
-                    tell(ctx, "help");
-                    return 1;
-                }))
+            .then(
+                literal("make")
+                    .then(
+                        argument("comment", StringArgumentType.word())
+                            .suggests((commandContext, suggestionsBuilder) -> CommandSource.suggestMatching(new String[]{getTime()}, suggestionsBuilder))
+                            .executes(ctx -> makeBackup(ctx, StringArgumentType.getString(ctx, "comment")))
+                    )
+                    .executes(ctx -> makeBackup(ctx, getTime()))
+            )
 
-                // no arguments
-                .executes(ctx -> {
-                            tell(ctx, "null");
-                            return 1;
-                        }
-                );
+            .then(
+                literal("list")
+                    .executes(ctx -> {
+                        tell(ctx, "list");
+                        return 1;
+                    })
+            )
+
+            .then(
+                literal("del")
+                    .executes(ctx -> {
+                        tell(ctx, "del");
+                        return 1;
+                    })
+            )
+
+            .then(
+                literal("back")
+                    .executes(ctx -> {
+                        tell(ctx, "back");
+                        return 1;
+                    })
+            )
+
+            .then(
+                literal("confirm")
+                    .executes(ctx -> {
+                        tell(ctx, "confirm");
+                        return 1;
+                    })
+            )
+
+            .then(
+                literal("abort")
+                    .executes(ctx -> {
+                        tell(ctx, "abort");
+                        return 1;
+                    })
+            )
+
+            .then(
+                literal("help")
+                    .executes(ctx -> {
+                        tell(ctx, "help");
+                        return 1;
+                    })
+            )
+
+            // no arguments
+            .executes(ctx -> {
+                    tell(ctx, "null");
+                    return 1;
+                }
+            );
         dispatcher.register(literalArgumentBuilder);
     }
 
