@@ -8,6 +8,9 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class warps {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("warps")
@@ -41,6 +44,17 @@ public class warps {
         }
         player.sendMessage(new LiteralText(messages.get(8, player.getGameProfile().getName())), false);
         return 0;
+    }
+
+    public static ArrayList<String> getWarpNames() {
+        File warpFolder = configs.warpFolder;
+        if (warpFolder.exists() && warpFolder.list().length != 0) {
+            ArrayList<String> warps = new ArrayList<>();
+            for (String warp : warpFolder.list())
+                warps.add(warp.replace(".yml", ""));
+            return warps;
+        }
+        return new ArrayList<>();
     }
 
 }

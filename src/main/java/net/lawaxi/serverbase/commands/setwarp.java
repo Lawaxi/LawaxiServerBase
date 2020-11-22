@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class setwarp {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -33,7 +34,7 @@ public class setwarp {
                                 player.sendMessage(new LiteralText(messages.get(10, player.getGameProfile().getName()).replace("%name%", warpname)), false);
                             } else {
                                 try {
-                                    String world = WorldDescription.getDiscription(player.getServerWorld(), player.getServer());
+                                    String world = WorldDescription.getDiscription(player.getServerWorld(), Objects.requireNonNull(player.getServer()));
                                     if (world.equals("shit")) {
                                         ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(11, player.getGameProfile().getName())), false);
                                     } else {
@@ -46,6 +47,10 @@ public class setwarp {
                                         buffer.write(String.valueOf(player.getY()));
                                         buffer.newLine();
                                         buffer.write(String.valueOf(player.getZ()));
+                                        buffer.newLine();
+                                        buffer.write(String.valueOf(player.getHeadYaw()));
+                                        buffer.newLine();
+                                        buffer.write(String.valueOf(player.getPitch(1)));
 
                                         buffer.close();
                                         ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(12, player.getGameProfile().getName()).replace("%name%", warpname)), false);

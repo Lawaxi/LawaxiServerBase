@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.lawaxi.serverbase.utils.List;
 import net.lawaxi.serverbase.utils.Tparequest;
 import net.lawaxi.serverbase.utils.config.messages;
+import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -14,6 +15,7 @@ public class tpahere {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("tpahere")
                 .then(CommandManager.argument(messages.get(24, "null"), EntityArgumentType.player())
+                        .suggests((ctx, suggestionsBuilder) -> CommandSource.suggestMatching(tpa.getPlayersExceptSelf(ctx.getSource().getPlayer()), suggestionsBuilder))
                         .executes(ctx -> {
                             ServerPlayerEntity to = EntityArgumentType.getPlayer(ctx, messages.get(24, "null"));
                             ServerPlayerEntity me = ctx.getSource().getPlayer();

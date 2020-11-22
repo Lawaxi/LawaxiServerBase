@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
+import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -11,10 +12,13 @@ import net.minecraft.text.LiteralText;
 
 import java.io.File;
 
+import static net.lawaxi.serverbase.commands.warps.getWarpNames;
+
 public class delwarp {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("delwarp")
                 .then(CommandManager.argument(messages.get(43, "null"), StringArgumentType.string())
+                        .suggests((ctx, suggestionsBuilder) -> CommandSource.suggestMatching(getWarpNames(), suggestionsBuilder))
                         .executes(ctx -> {
 
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
