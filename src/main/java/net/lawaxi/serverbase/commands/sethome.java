@@ -22,7 +22,6 @@ public class sethome {
                 .then(CommandManager.argument(messages.get(18, "null"), StringArgumentType.string())
                         .executes(ctx -> {
 
-
                             if (!configs.homefolder.exists())
                                 configs.homefolder.mkdir();
 

@@ -56,6 +56,8 @@ public class CommandManagerMixin {
         home.register(dispatcher);
         sethome.register(dispatcher);
 
+        backup.register(dispatcher);
+
         if (configs.allowBackup) {
             saveme.register(dispatcher);
             loadme.register(dispatcher);
