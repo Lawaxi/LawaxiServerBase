@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class setwarp {
@@ -24,37 +25,37 @@ public class setwarp {
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
 
-                            File warpfolder = configs.warpFolder;
-                            if (!warpfolder.exists())
-                                warpfolder.mkdir();
+                            File warpFolder = configs.warpFolder;
+                            if (!warpFolder.exists())
+                                warpFolder.mkdir();
 
-                            String warpname = StringArgumentType.getString(ctx, messages.get(9, "null"));
-                            File warpfile = new File(warpfolder, warpname + ".yml");
-                            if (warpfile.exists()) {
-                                player.sendMessage(new LiteralText(messages.get(10, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                            String warpName = StringArgumentType.getString(ctx, messages.get(9, "null"));
+                            File warpFile = new File(warpFolder, warpName + ".yml");
+                            if (warpFile.exists()) {
+                                player.sendMessage(new LiteralText(messages.get(10, player.getGameProfile().getName()).replace("%name%", warpName)), false);
                             } else {
                                 try {
-                                    String world = WorldDescription.getDiscription(player.getServerWorld(), Objects.requireNonNull(player.getServer()));
+                                    String world = WorldDescription.getDescription(player.getServerWorld(), Objects.requireNonNull(player.getServer()));
                                     if (world.equals("shit")) {
                                         ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(11, player.getGameProfile().getName())), false);
                                     } else {
-                                        BufferedWriter buffer = Files.newWriter(warpfile, StandardCharsets.UTF_8);
+                                        BufferedWriter buffer = Files.newWriter(warpFile, StandardCharsets.UTF_8);
 
-                                        buffer.write(world);
-                                        buffer.newLine();
-                                        buffer.write(String.valueOf(player.getX()));
-                                        buffer.newLine();
-                                        buffer.write(String.valueOf(player.getY()));
-                                        buffer.newLine();
-                                        buffer.write(String.valueOf(player.getZ()));
-                                        buffer.newLine();
-                                        buffer.write(String.valueOf(player.getHeadYaw()));
-                                        buffer.newLine();
-                                        buffer.write(String.valueOf(player.getPitch(1)));
-
+                                        ArrayList<String> lines = new ArrayList<>();
+                                        lines.add(world);
+                                        lines.add(String.valueOf(player.getX()));
+                                        lines.add(String.valueOf(player.getY()));
+                                        lines.add(String.valueOf(player.getZ()));
+                                        lines.add(String.valueOf(player.getHeadYaw()));
+                                        lines.add(String.valueOf(player.getPitch(1)));
+                                        for (String line : lines) {
+                                            buffer.write(line);
+                                            if (lines.indexOf(line) != lines.size())
+                                                buffer.newLine();
+                                        }
                                         buffer.close();
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(12, player.getGameProfile().getName()).replace("%name%", warpname)), false);
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(2, player.getGameProfile().getName()).replace("%to%", warpname)), true);
+                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(12, player.getGameProfile().getName()).replace("%name%", warpName)), false);
+                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(2, player.getGameProfile().getName()).replace("%to%", warpName)), true);
                                     }
                                 } catch (IOException ignored) {
                                 }

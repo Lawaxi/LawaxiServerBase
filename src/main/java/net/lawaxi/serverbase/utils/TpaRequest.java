@@ -6,7 +6,7 @@ import net.minecraft.text.LiteralText;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Tparequest {
+public class TpaRequest {
 
     public ServerPlayerEntity me;
     public ServerPlayerEntity to;
@@ -14,7 +14,7 @@ public class Tparequest {
 
     public boolean exist = true;
 
-    public Tparequest() {
+    public TpaRequest() {
 
         new Timer().schedule(new TimerTask() {
             public void run() {
@@ -30,15 +30,15 @@ public class Tparequest {
 
     public static boolean hasrequest(ServerPlayerEntity me) {
 
-        for (Tparequest request : List.tparequests) {
+        for (TpaRequest request : List.tparequests) {
             if (request.me.equals(me))
                 return true;
         }
         return false;
     }
 
-    public static Tparequest search(ServerPlayerEntity who) {
-        for (Tparequest request : List.tparequests) {
+    public static TpaRequest search(ServerPlayerEntity who) {
+        for (TpaRequest request : List.tparequests) {
             if (request.to.equals(who)) {
 
                 request.exist = false;

@@ -7,6 +7,6 @@ import java.util.HashMap;
 
 public class List {
 
-    public static final ArrayList<Tparequest> tparequests = new ArrayList<>();
+    public static final ArrayList<TpaRequest> tparequests = new ArrayList<>();
     public static final HashMap<GameProfile, LocationInfo> lastlocation = new HashMap<>();
 }

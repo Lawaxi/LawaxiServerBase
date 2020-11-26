@@ -17,15 +17,9 @@ public class s {
                     if (player.isSpectator()) {
                         if (PseudoFreecam.actualLocation.containsKey(player.getGameProfile())) { // has location in hashmap
                             LocationInfo actualLocation = PseudoFreecam.actualLocation.get(player.getGameProfile());
-                            player.teleport(
-                                    actualLocation.world,
-                                    actualLocation.position.getX(),
-                                    actualLocation.position.getY(),
-                                    actualLocation.position.getZ(),
-                                    actualLocation.yaw,
-                                    actualLocation.pitch);
+                            actualLocation.teleport(player);
                             player.setGameMode(GameMode.SURVIVAL);
-                            player.sendMessage(new LiteralText("§6Freecam Off"), false);
+                            player.sendMessage(new LiteralText("§6Freecam Off"), true);
                             PseudoFreecam.actualLocation.remove(player.getGameProfile());
                             return 1;
                         } else {

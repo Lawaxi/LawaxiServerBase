@@ -15,14 +15,9 @@ public class c {
                 .executes(ctx -> {
                     ServerPlayerEntity player = ctx.getSource().getPlayer();
                     if (GameMode.byName(player.getGameProfile().getName()) == GameMode.SURVIVAL) {
-                        LocationInfo locationinfo = new LocationInfo();
-                        locationinfo.position = player.getBlockPos();
-                        locationinfo.world = player.getServerWorld();
-                        locationinfo.yaw = player.getHeadYaw();
-                        locationinfo.pitch = player.getPitch(1);
-                        PseudoFreecam.actualLocation.put(player.getGameProfile(), locationinfo);
+                        PseudoFreecam.actualLocation.put(player.getGameProfile(), new LocationInfo(player));
                         player.setGameMode(GameMode.SPECTATOR);
-                        player.sendMessage(new LiteralText("§6Freecam On"), false);
+                        player.sendMessage(new LiteralText("§6Freecam On"), true);
                         return 1;
                     } else {
                         player.sendMessage(new LiteralText("§cYou are not in survival mode!"), false);

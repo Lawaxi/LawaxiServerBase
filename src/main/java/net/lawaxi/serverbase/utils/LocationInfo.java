@@ -16,6 +16,15 @@ public class LocationInfo {
     public LocationInfo() {
     }
 
+    // the location of the player
+    public LocationInfo(ServerPlayerEntity player) {
+        position = player.getBlockPos();
+        world = player.getServerWorld();
+        yaw = player.getHeadYaw();
+        pitch = player.getPitch(1);
+    }
+
+    // the location in the file in the ServerWorld the player is in
     public LocationInfo(File file, ServerPlayerEntity player) throws BrokenPositionException {
         if (file.exists()) {
             try {

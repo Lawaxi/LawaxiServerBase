@@ -1,7 +1,7 @@
 package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.lawaxi.serverbase.utils.Tparequest;
+import net.lawaxi.serverbase.utils.TpaRequest;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -13,7 +13,7 @@ public class tpadeny {
         dispatcher.register(CommandManager.literal("tpadeny")
                 .executes(ctx -> {
                     ServerPlayerEntity who = ctx.getSource().getPlayer();
-                    Tparequest request = Tparequest.search(who);
+                    TpaRequest request = TpaRequest.search(who);
                     if (request == null) {
                         who.sendMessage(new LiteralText(messages.get(36, who.getGameProfile().getName())), false);
                     } else {

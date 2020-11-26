@@ -37,7 +37,7 @@ public class sethome {
                                 player.sendMessage(new LiteralText(messages.get(19, player.getGameProfile().getName()).replace("%name%", homename)), false);
                             } else {
                                 try {
-                                    String world = WorldDescription.getDiscription(player.getServerWorld(), Objects.requireNonNull(player.getServer()));
+                                    String world = WorldDescription.getDescription(player.getServerWorld(), Objects.requireNonNull(player.getServer()));
                                     if (world.equals("shit")) {
                                         ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(20, player.getGameProfile().getName())), false);
                                     } else {

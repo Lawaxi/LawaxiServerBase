@@ -2,7 +2,7 @@ package net.lawaxi.serverbase.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.lawaxi.serverbase.utils.List;
-import net.lawaxi.serverbase.utils.Tparequest;
+import net.lawaxi.serverbase.utils.TpaRequest;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -19,11 +19,11 @@ public class tpahere {
                         .executes(ctx -> {
                             ServerPlayerEntity to = EntityArgumentType.getPlayer(ctx, messages.get(24, "null"));
                             ServerPlayerEntity me = ctx.getSource().getPlayer();
-                            if (!Tparequest.hasrequest(me)) {
+                            if (!TpaRequest.hasrequest(me)) {
                                 if (to.equals(me)) {
                                     to.sendMessage(new LiteralText(messages.get(33, to.getGameProfile().getName())), false);
                                 } else {
-                                    Tparequest newrequest = new Tparequest();
+                                    TpaRequest newrequest = new TpaRequest();
                                     newrequest.to = to;
                                     newrequest.me = me;
                                     newrequest.mode = true;

@@ -66,8 +66,7 @@ public abstract class ServerPlayerEntityMixin {
         }
     }
 
-    /*
-    private static String getOnlineSkin(String name)
+/*    private static String getOnlineSkin(String name)
     {
         //1.获取玩家正版UUid
         String uuid = HttpRequest.sendGet("https://api.mojang.com/users/profiles/minecraft/"+name,"");

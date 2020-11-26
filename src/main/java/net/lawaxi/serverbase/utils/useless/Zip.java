@@ -1,4 +1,4 @@
-package net.lawaxi.serverbase.utils;
+package net.lawaxi.serverbase.utils.useless;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
