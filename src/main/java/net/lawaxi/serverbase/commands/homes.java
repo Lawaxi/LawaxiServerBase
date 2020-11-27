@@ -42,7 +42,7 @@ public class homes {
         if (homeFolder.exists() && homeFolder.list().length != 0) {
             ArrayList<String> homes = new ArrayList<>();
             for (String home : homeFolder.list())
-                homes.add(home.replace(".yml", ""));
+                homes.add(home.replaceAll("\\.yml$", ""));
             return homes;
         }
         return new ArrayList<>();

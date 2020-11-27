@@ -22,7 +22,7 @@ public class CommandManagerMixin {
 
         System.out.println("欢迎使用ServerBase！");
         System.out.println("https://www.mcbbs.net/forum.php?mod=viewthread&tid=1031677");
-        System.out.println("https://github.com/Lawaxi/LawaxiServerBase");
+        System.out.println("https://github.com/KaiXuan233/LawaxiServerBase");
 
         File configfolder = new File("Lawaxi");
         if (!configfolder.exists())

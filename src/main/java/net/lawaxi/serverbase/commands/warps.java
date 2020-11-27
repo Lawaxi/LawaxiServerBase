@@ -25,7 +25,7 @@ public class warps {
 
     public static String sortName(String name, String playername) {
         //去掉文件名结尾的".yml"
-        return messages.get(6, playername).replace("%name%", name.substring(0, name.length() - 4)) + messages.get(7, playername);
+        return messages.get(6, playername).replace("%name%", name.replaceAll("\\.yml$", "")) + messages.get(7, playername);
     }
 
     public static int getWarps(ServerPlayerEntity player) {
@@ -51,7 +51,7 @@ public class warps {
         if (warpFolder.exists() && warpFolder.list().length != 0) {
             ArrayList<String> warps = new ArrayList<>();
             for (String warp : warpFolder.list())
-                warps.add(warp.replace(".yml", ""));
+                warps.add(warp.replaceAll("\\.yml$", ""));
             return warps;
         }
         return new ArrayList<>();
