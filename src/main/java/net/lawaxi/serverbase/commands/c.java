@@ -14,7 +14,7 @@ public class c {
         dispatcher.register(CommandManager.literal("c")
                 .executes(ctx -> {
                     ServerPlayerEntity player = ctx.getSource().getPlayer();
-                    if (GameMode.byName(player.getGameProfile().getName()) == GameMode.SURVIVAL) {
+                    if (player.interactionManager.getGameMode() == GameMode.SURVIVAL) {
                         PseudoFreecam.actualLocation.put(player.getGameProfile(), new LocationInfo(player));
                         player.setGameMode(GameMode.SPECTATOR);
                         player.sendMessage(new LiteralText("§6Freecam On"), true);
