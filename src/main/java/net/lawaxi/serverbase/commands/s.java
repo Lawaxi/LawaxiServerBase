@@ -18,7 +18,7 @@ public class s {
                         if (PseudoFreecam.actualLocation.containsKey(player.getGameProfile())) { // has location in hashmap
                             LocationInfo actualLocation = PseudoFreecam.actualLocation.get(player.getGameProfile());
                             actualLocation.teleport(player);
-                            player.setGameMode(GameMode.SURVIVAL);
+                            player.changeGameMode(GameMode.SURVIVAL);
                             player.sendMessage(new LiteralText("§6Freecam Off"), true);
                             PseudoFreecam.actualLocation.remove(player.getGameProfile());
                             return 1;

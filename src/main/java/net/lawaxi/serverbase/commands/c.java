@@ -16,7 +16,7 @@ public class c {
                     ServerPlayerEntity player = ctx.getSource().getPlayer();
                     if (player.interactionManager.getGameMode() == GameMode.SURVIVAL) {
                         PseudoFreecam.actualLocation.put(player.getGameProfile(), new LocationInfo(player));
-                        player.setGameMode(GameMode.SPECTATOR);
+                        player.changeGameMode(GameMode.SPECTATOR);
                         player.sendMessage(new LiteralText("§6Freecam On"), true);
                         return 1;
                     } else {

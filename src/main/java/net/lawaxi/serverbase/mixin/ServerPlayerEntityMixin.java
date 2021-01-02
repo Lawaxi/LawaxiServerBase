@@ -137,6 +137,8 @@ public abstract class ServerPlayerEntityMixin {
         }
         */
 //        checking.check(((ServerPlayerEntity) (Object) this).getServer().getPlayerManager().getUserBanList());
+
+
     }
 
     private void save() {
@@ -152,7 +154,7 @@ public abstract class ServerPlayerEntityMixin {
                 actualLocation.position.getZ(),
                 actualLocation.yaw,
                 actualLocation.pitch);
-        player.setGameMode(GameMode.SURVIVAL);
+        player.changeGameMode(GameMode.SURVIVAL);
 //        player.sendMessage(new LiteralText("§6Freecam Off"), false);
         PseudoFreecam.actualLocation.remove(player.getGameProfile());
     }
