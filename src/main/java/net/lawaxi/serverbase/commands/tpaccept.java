@@ -37,7 +37,7 @@ public class tpaccept {
                             to.sendMessage(new LiteralText(messages.get(1, to.getGameProfile().getName())), false);
                             me.sendMessage(new LiteralText(messages.get(2, me.getGameProfile().getName()).replace("%to%", to.getEntityName())), true);
 
-                            me.teleport((ServerWorld) to.world, to.getX(), to.getY(), to.getZ(), to.yaw, to.pitch);
+                            me.teleport((ServerWorld) to.world, to.getX(), to.getY(), to.getZ(), to.getYaw(), to.getPitch());
                         }
                     }
                     return 1;
