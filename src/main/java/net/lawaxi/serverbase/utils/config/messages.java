@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -15,6 +16,8 @@ public class messages {
 
     private static final ArrayList<String> m = new ArrayList<>();
     private static final HashMap<String, ArrayList<String>> m1 = new HashMap<>();
+
+    private static final Charset utf8 = Charset.forName("UTF-8");
 
     private static JsonObject pl2 = null;
 
@@ -41,7 +44,7 @@ public class messages {
 
 
         try {
-            FileReader r1 = new FileReader(pl1);
+            FileReader r1 = new FileReader(pl1, utf8);
             pl2 = new GsonBuilder().create().fromJson(r1, JsonObject.class);
             r1.close();
 
@@ -170,10 +173,10 @@ public class messages {
                 if (!m1.containsKey(langname)) {
 
 
-                    ArrayList<String> l1919 = (ArrayList<String>) m.clone();
+                    ArrayList<String> l1919 = m;
                     try {
 
-                        FileReader q2 = new FileReader(new File(messagesFolder, name2));
+                        FileReader q2 = new FileReader(new File(messagesFolder, name2), utf8);
                         BufferedReader q3 = new BufferedReader(q2);
 
                         for (int i = 0; i < m.size(); i++) {
@@ -189,7 +192,7 @@ public class messages {
                         q3.close();
                         q2.close();
 
-                        m1.put(langname, (ArrayList<String>) l1919.clone());
+                        m1.put(langname, l1919);
                         System.out.println("成功加载语言: " + langname);
 
                     } catch (Exception e1) {
