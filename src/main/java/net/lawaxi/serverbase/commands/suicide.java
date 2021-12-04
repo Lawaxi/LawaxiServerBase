@@ -14,12 +14,17 @@ public class suicide {
         dispatcher.register(CommandManager.literal("suicide")
                 .executes(ctx -> {
                     ServerPlayerEntity player = ctx.getSource().getPlayer();
-                    if (player.interactionManager.getGameMode() != GameMode.SPECTATOR) {
-                        player.sendMessage(new LiteralText(messages.get(82, player.getGameProfile().getName())), false);
-                    } else {
+                    try {
+                        if (player.interactionManager.getGameMode() == GameMode.SPECTATOR) {
+                            player.sendMessage(new LiteralText(messages.get(81, player.getGameProfile().getName())), false);
+                            return 1;
+                        }
                         player.kill();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    return 1;
+
+                    return 0;
                 }));
     }
 }

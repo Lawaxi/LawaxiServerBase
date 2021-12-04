@@ -11,10 +11,10 @@ import java.util.Set;
 
 public class messages {
 
-    private static final File pl1 = new File("Lawaxi", "playerlanguages.json");
+    private static final File playerLanguagesFile = new File("Lawaxi", "playerlanguages.json");
     private static final File messagesFolder = new File("Lawaxi", "messages");
 
-    private static final ArrayList<String> m = new ArrayList<>();
+    private static final ArrayList<String> defaultMessages = new ArrayList<>();
     private static final HashMap<String, ArrayList<String>> m1 = new HashMap<>();
 
     private static final Charset utf8 = Charset.forName("UTF-8");
@@ -24,18 +24,18 @@ public class messages {
     public messages() {
 
         //玩家语言读取
-        if (!pl1.exists()) {
+        if (!playerLanguagesFile.exists()) {
 
             try {
-                pl1.createNewFile();
-                FileWriter w1 = new FileWriter(pl1);
-                BufferedWriter w2 = new BufferedWriter(w1);
+                playerLanguagesFile.createNewFile();
+                FileWriter fileWriter = new FileWriter(playerLanguagesFile);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
                 JsonObject w3 = new JsonObject();
                 w3.addProperty("null", "zhsp");
-                w2.write(w3.toString());
-                w2.close();
-                w1.close();
+                bufferedWriter.write(w3.toString());
+                bufferedWriter.close();
+                fileWriter.close();
 
             } catch (IOException ignored) {
 
@@ -44,9 +44,9 @@ public class messages {
 
 
         try {
-            FileReader r1 = new FileReader(pl1, utf8);
-            pl2 = new GsonBuilder().create().fromJson(r1, JsonObject.class);
-            r1.close();
+            FileReader fileReader = new FileReader(playerLanguagesFile, utf8);
+            pl2 = new GsonBuilder().create().fromJson(fileReader, JsonObject.class);
+            fileReader.close();
 
         } catch (IOException e) {
             pl2 = null;
@@ -81,86 +81,90 @@ public class messages {
 
 
         //默认防bug语言
-        m.add("§a你好，%player%！");
-        m.add("§a正在传送...");
-        m.add("§a%to%");
-        m.add("地标名称");
-        m.add("§c地标§4 %to% §c不存在或已损坏");
-        m.add("§6地标列表：");
-        m.add("§e%name%");
-        m.add("§6,");
-        m.add("§c没有可用的地标");
-        m.add("地标名称");
-        m.add("§c地标§4 %name% §c已存在，请删除后再写入");
-        m.add("§c很抱歉，暂不支持除主世界 地狱 末地外的地标设置");
-        m.add("§a地标§2 %name% §a创建成功");
-        m.add("§c请输入要创建的地标名称");
-        m.add("家的名称");
-        m.add("§c家§4 %to% §c不存在或已损坏");
-        m.add("§6玩家§e %player% §6的家列表：");
-        m.add("§c您没有可用的家");
-        m.add("家的名称");
-        m.add("§c家§4 %name% §c已存在，请删除后再写入");
-        m.add("§c很抱歉，暂不支持除主世界 地狱 末地外的家的设置");
-        m.add("§a家§2 %name% §a创建成功");
-        m.add("§c请输入要创建的家的名称");
-        m.add("§a主城");
-        m.add("玩家");
-        m.add("§c您不能传送自己");
-        m.add("§6已成功发送传送请求");
-        m.add("§e%from% §6请求传送到你这里:");
-        m.add("§6同意请输入/tpaccept");
-        m.add("§6不同意请输入/tpadeny");
-        m.add("§c传送请求发送失败");
-        m.add("§c您已经有一条挂起的请求了");
-        m.add("§c请输入要传送的玩家");
-        m.add("§c您不能请求自己传送");
-        m.add("§e%from% §6请求你传送到他那里:");
-        m.add("§c您没有待接受的请求");
-        m.add("§c您没有待拒绝的请求");
-        m.add("§c对方拒绝了你的请求");
-        m.add("§c已成功拒绝对方的请求");
-        m.add("§eop列表：§6");
-        m.add("§e本服务器没有op");
-        m.add("§4banned列表：§6");
-        m.add("§e本服务器没有玩家曾经被封禁");
-        m.add("地标名称");
-        m.add("§a地标§2 %name% §a删除成功");
-        m.add("§c地标§4 %name% §c删除失败");
-        m.add("§c地标§4 %name% §c不存在");
-        m.add("§c请输入要删除的地标名称");
-        m.add("家的名称");
-        m.add("§a家§2 %name% §a删除成功");
-        m.add("§c家§4 %name% §c删除失败");
-        m.add("§c家§4 %name% §c不存在");
-        m.add("§c请输入要删除的家的名称");
-        m.add("§c您手中没有物品");
-        m.add("§a享受您的新帽子吧~");
-        m.add("§6切换飞行模式为: §c关闭");
-        m.add("§6切换飞行模式为: §a开启");
-        m.add("§c您没有权限开启飞行");
-        m.add("§c您不在允许备份的白名单中");
-        m.add("§a正在备份，请稍后连入");
-        m.add("§c您没有要载入的备份");
-        m.add("§a正在读取备份，请稍后连入");
-        m.add("§c您不能在观察者模式下传送");
-        m.add("§c对方正处于观察者模式中 无法接受传送请求");
-        m.add("§c您处于观察者模式 对方接受了请求但被服务器驳回了");
-        m.add("§e[种子] §6主世界: %seed%");
-        m.add("§e[种子] §6地狱: %seed%");
-        m.add("§e[种子] §6末地: %seed%");
-        m.add("§e[种子] §6未知世界: %seed%");
-        m.add("§b@%player% §9在主世界: §bx=%x% y=%y% z=%z%");
-        m.add("§b@%player% §9在地狱: §bx=%x% y=%y% z=%z%");
-        m.add("§b@%player% §9在末地: §bx=%x% y=%y% z=%z%");
-        m.add("§b@%player% §9在未知世界: §bx=%x% y=%y% z=%z%");
-        m.add("§9支持的语言列表: "); //73
-        m.add("§b%lang%");
-        m.add("§9,");
-        m.add("§a成功将您的显示语言切换至 §b%lang%");
-        m.add("§c语言切换失败");
-        m.add("§c不支持的语言");
-        m.add("§9您的语言: §b%lang%");
+        defaultMessages.add("§a你好，%player%！");
+        defaultMessages.add("§a正在传送...");
+        defaultMessages.add("§a%to%");
+        defaultMessages.add("地标名称");
+        defaultMessages.add("§c地标§4 %to% §c不存在或已损坏");
+        defaultMessages.add("§6地标列表：");
+        defaultMessages.add("§e%name%");
+        defaultMessages.add("§6,");
+        defaultMessages.add("§c没有可用的地标");
+        defaultMessages.add("地标名称");
+        defaultMessages.add("§c地标§4 %name% §c已存在，请删除后再写入");
+        defaultMessages.add("§c很抱歉，暂不支持除主世界 地狱 末地外的地标设置");
+        defaultMessages.add("§a地标§2 %name% §a创建成功");
+        defaultMessages.add("§c请输入要创建的地标名称");
+        defaultMessages.add("家的名称");
+        defaultMessages.add("§c家§4 %to% §c不存在或已损坏");
+        defaultMessages.add("§6玩家§e %player% §6的家列表：");
+        defaultMessages.add("§c您没有可用的家");
+        defaultMessages.add("家的名称");
+        defaultMessages.add("§c家§4 %name% §c已存在，请删除后再写入");
+        defaultMessages.add("§c很抱歉，暂不支持除主世界 地狱 末地外的家的设置");
+        defaultMessages.add("§a家§2 %name% §a创建成功");
+        defaultMessages.add("§c请输入要创建的家的名称");
+        defaultMessages.add("§a主城");
+        defaultMessages.add("玩家");
+        defaultMessages.add("§c您不能传送自己");
+        defaultMessages.add("§6已成功发送传送请求");
+        defaultMessages.add("§e%from% §6请求传送到你这里:");
+        defaultMessages.add("§6同意请输入/tpaccept");
+        defaultMessages.add("§6不同意请输入/tpadeny");
+        defaultMessages.add("§c传送请求发送失败");
+        defaultMessages.add("§c您已经有一条挂起的请求了");
+        defaultMessages.add("§c请输入要传送的玩家");
+        defaultMessages.add("§c您不能请求自己传送");
+        defaultMessages.add("§e%from% §6请求你传送到他那里:");
+        defaultMessages.add("§c您没有待接受的请求");
+        defaultMessages.add("§c您没有待拒绝的请求");
+        defaultMessages.add("§c对方拒绝了你的请求");
+        defaultMessages.add("§c已成功拒绝对方的请求");
+        defaultMessages.add("§eop列表：§6");
+        defaultMessages.add("§e本服务器没有op");
+        defaultMessages.add("§4banned列表：§6");
+        defaultMessages.add("§e本服务器没有玩家曾经被封禁");
+        defaultMessages.add("地标名称");
+        defaultMessages.add("§a地标§2 %name% §a删除成功");
+        defaultMessages.add("§c地标§4 %name% §c删除失败");
+        defaultMessages.add("§c地标§4 %name% §c不存在");
+        defaultMessages.add("§c请输入要删除的地标名称");
+        defaultMessages.add("家的名称");
+        defaultMessages.add("§a家§2 %name% §a删除成功");
+        defaultMessages.add("§c家§4 %name% §c删除失败");
+        defaultMessages.add("§c家§4 %name% §c不存在");
+        defaultMessages.add("§c请输入要删除的家的名称");
+        defaultMessages.add("§c您手中没有物品");
+        defaultMessages.add("§a享受您的新帽子吧~");
+        defaultMessages.add("§6切换飞行模式为: §c关闭");
+        defaultMessages.add("§6切换飞行模式为: §a开启");
+        defaultMessages.add("§c您没有权限开启飞行");
+        defaultMessages.add("§c您不在允许备份的白名单中");
+        defaultMessages.add("§a正在备份，请稍后连入");
+        defaultMessages.add("§c您没有要载入的备份");
+        defaultMessages.add("§a正在读取备份，请稍后连入");
+        defaultMessages.add("§c您不能在观察者模式下传送");
+        defaultMessages.add("§c对方正处于观察者模式中 无法接受传送请求");
+        defaultMessages.add("§c您处于观察者模式 对方接受了请求但被服务器驳回了");
+        defaultMessages.add("§e[种子] §6主世界: %seed%");
+        defaultMessages.add("§e[种子] §6地狱: %seed%");
+        defaultMessages.add("§e[种子] §6末地: %seed%");
+        defaultMessages.add("§e[种子] §6未知世界: %seed%");
+        defaultMessages.add("§b@%player% §9在主世界: §bx=%x% y=%y% z=%z%");
+        defaultMessages.add("§b@%player% §9在地狱: §bx=%x% y=%y% z=%z%");
+        defaultMessages.add("§b@%player% §9在末地: §bx=%x% y=%y% z=%z%");
+        defaultMessages.add("§b@%player% §9在未知世界: §bx=%x% y=%y% z=%z%");
+        defaultMessages.add("§9支持的语言列表: "); //73
+        defaultMessages.add("§b%lang%");
+        defaultMessages.add("§9,");
+        defaultMessages.add("§a成功将您的显示语言切换至 §b%lang%");
+        defaultMessages.add("§c语言切换失败");
+        defaultMessages.add("§c不支持的语言");
+        defaultMessages.add("§9您的语言: §b%lang%");
+        defaultMessages.add("§c不能传送至观察者模式中的玩家");
+        defaultMessages.add("§c观察者模式中的玩家不能自杀");
+        defaultMessages.add("§6你的死亡坐标是：%world%, %x%, %y%, %z%");
+        defaultMessages.add("§6输入/back来回到死亡地点");
 
 
         //读自定义语言文件
@@ -173,13 +177,13 @@ public class messages {
                 if (!m1.containsKey(langname)) {
 
 
-                    ArrayList<String> l1919 = m;
+                    ArrayList<String> l1919 = defaultMessages;
                     try {
 
                         FileReader q2 = new FileReader(new File(messagesFolder, name2), utf8);
                         BufferedReader q3 = new BufferedReader(q2);
 
-                        for (int i = 0; i < m.size(); i++) {
+                        for (int i = 0; i < defaultMessages.size(); i++) {
 
                             try {
                                 String a = q3.readLine();
@@ -218,18 +222,19 @@ public class messages {
     }
 
     public static String get(int index, String playername) {
+        // index = (line in .yml file) - 1
 
         try {
             //玩家语言配置加载错误
             if (pl2 == null) {
                 System.out.println("[Lang] Lang Info: 玩家语言配置加载错误");
-                return m.get(index);
+                return defaultMessages.get(index);
             }
 
             //没有附加语言文件
             if (m1.keySet().size() == 0) {
                 System.out.println("[Lang] Lang Info: 没有任何可用的语言文件");
-                return m.get(index);
+                return defaultMessages.get(index);
             }
 
             String lang = getLang(playername);
@@ -242,9 +247,10 @@ public class messages {
                 if (configs.debug) {
                     System.out.println("[Lang] Null Found: " + playername + " 的语言并未设置");
                 }
-                return m.get(index);
+                return defaultMessages.get(index);
             } else
                 return m1.get(lang).get(index);
+                
         } catch (NullPointerException e) {
             System.out.println("语言 " + index + " 不存在，试图获取时出错，请联系插件作者！");
             return "";
@@ -285,7 +291,7 @@ public class messages {
         pl2.addProperty(playername, name);
 
         try {
-            FileWriter wn1 = new FileWriter(pl1);
+            FileWriter wn1 = new FileWriter(playerLanguagesFile);
             BufferedWriter wn2 = new BufferedWriter(wn1);
             wn2.write(pl2.toString());
             wn2.close();

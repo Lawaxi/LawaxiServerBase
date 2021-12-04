@@ -20,8 +20,8 @@ public class tpaccept {
                         who.sendMessage(new LiteralText(messages.get(35, who.getGameProfile().getName())), false);
                     } else {
                         if (request.to.interactionManager.getGameMode() == GameMode.SPECTATOR) {
-                            who.sendMessage(new LiteralText(messages.get(81, who.getGameProfile().getName())), false);
-                            request.to.sendMessage(new LiteralText(messages.get(81, request.me.getGameProfile().getName())), false);
+                            who.sendMessage(new LiteralText(messages.get(80, who.getGameProfile().getName())), false);
+                            request.to.sendMessage(new LiteralText(messages.get(80, request.me.getGameProfile().getName())), false);
                         } else {
 
                             ServerPlayerEntity me, to;
