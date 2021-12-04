@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.lawaxi.serverbase.utils.List;
 import net.lawaxi.serverbase.utils.LocationInfo;
 import net.lawaxi.serverbase.utils.PseudoFreecam;
+import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -11,6 +12,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
+import net.minecraft.world.World;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,6 +44,25 @@ public abstract class ServerPlayerEntityMixin {
         if (PseudoFreecam.actualLocation.containsKey(player.getGameProfile())) {
             c2s(player);
         }
+        
+        // Send coordintates at death
+        String worldString;
+        if (player.getWorld() == player.getServer().getWorld(World.OVERWORLD)) {
+            worldString = "Overworld";
+        } else if (player.getWorld() == player.getServer().getWorld(World.END)) {
+            worldString = "End";
+        } else if (player.getWorld() == player.getServer().getWorld(World.NETHER)) {
+            worldString = "Nether";
+        } else {
+            worldString = "Unknown";
+        }
+        player.sendMessage(new LiteralText(messages.get(83, player.getGameProfile().getName())
+                .replace("%world%", worldString)
+                .replace("%X%", "" + player.getBlockX())
+                .replace("%Y%", "" + player.getBlockY())
+                .replace("%Z%", "" + player.getBlockZ()) 
+        ), false);
+        if (configs.allowBack) player.sendMessage(new LiteralText(messages.get(84, player.getGameProfile().getName())), false);
     }
 
     @Inject(at = @At("HEAD"), method = "teleport")

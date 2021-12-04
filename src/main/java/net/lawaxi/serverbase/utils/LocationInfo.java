@@ -38,6 +38,8 @@ public class LocationInfo {
                 String stringYaw = buffer.readLine();
                 String stringPitch = buffer.readLine();
 
+                buffer.close();
+
                 if (stringWorld == null) throw new BrokenPositionException("Broken Position: world");
                 if (stringX == null) throw new BrokenPositionException("Broken Position: X");
                 if (stringY == null) throw new BrokenPositionException("Broken Position: Y");

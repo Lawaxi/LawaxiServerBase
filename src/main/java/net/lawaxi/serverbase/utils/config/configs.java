@@ -37,11 +37,11 @@ public class configs {
 
                 // 读取配置文件
                 FileReader fr = new FileReader(config);
-                JsonObject shits2 = new GsonBuilder().create().fromJson(fr, JsonObject.class);
+                JsonObject jsonObject = new GsonBuilder().create().fromJson(fr, JsonObject.class);
 
                 try {
                     // 仅为判断文件是否为标准的Json
-                    shits2.has("allowBackup");
+                    jsonObject.has("allowBackup");
                 } catch (NullPointerException badJson) {
 
 
@@ -61,49 +61,49 @@ public class configs {
                     fw.close();
 
                     fr = new FileReader(config);
-                    shits2 = new GsonBuilder().create().fromJson(fr, JsonObject.class);
+                    jsonObject = new GsonBuilder().create().fromJson(fr, JsonObject.class);
                 }
 
                 // 检验是全部配置包含
                 boolean change = false;
-                if (!shits2.has("allowBackup")) {
-                    shits2.addProperty("allowBackup", allowBackup);
+                if (!jsonObject.has("allowBackup")) {
+                    jsonObject.addProperty("allowBackup", allowBackup);
                     change = true;
                 }
-                if (!shits2.has("allowFly")) {
-                    shits2.addProperty("allowFly", allowFly);
+                if (!jsonObject.has("allowFly")) {
+                    jsonObject.addProperty("allowFly", allowFly);
                     change = true;
                 }
-                if (!shits2.has("allowBack")) {
-                    shits2.addProperty("allowBack", allowBack);
+                if (!jsonObject.has("allowBack")) {
+                    jsonObject.addProperty("allowBack", allowBack);
                     change = true;
                 }
-                if (!shits2.has("allowSeed")) {
-                    shits2.addProperty("allowSeed", allowSeed);
+                if (!jsonObject.has("allowSeed")) {
+                    jsonObject.addProperty("allowSeed", allowSeed);
                     change = true;
                 }
-                if (!shits2.has("debugVersion")) {
-                    shits2.addProperty("debugVersion", debug);
+                if (!jsonObject.has("debugVersion")) {
+                    jsonObject.addProperty("debugVersion", debug);
                     change = true;
                 }
-                if (!shits2.has("freecam")) {
-                    shits2.addProperty("freecam", freecam);
+                if (!jsonObject.has("freecam")) {
+                    jsonObject.addProperty("freecam", freecam);
                     change = true;
                 }
                 if (change) {
                     FileWriter fw = new FileWriter(config);
-                    fw.write(shits2.toString());
+                    fw.write(jsonObject.toString());
                     fw.close();
                 }
 
 
                 // 读取配置
-                allowBackup = shits2.get("allowBackup").getAsBoolean();
-                allowFly = shits2.get("allowFly").getAsBoolean();
-                allowBack = shits2.get("allowBack").getAsBoolean();
-                allowSeed = shits2.get("allowSeed").getAsBoolean();
-                debug = shits2.get("debugVersion").getAsBoolean();
-                freecam = shits2.get("freecam").getAsBoolean();
+                allowBackup = jsonObject.get("allowBackup").getAsBoolean();
+                allowFly = jsonObject.get("allowFly").getAsBoolean();
+                allowBack = jsonObject.get("allowBack").getAsBoolean();
+                allowSeed = jsonObject.get("allowSeed").getAsBoolean();
+                debug = jsonObject.get("debugVersion").getAsBoolean();
+                freecam = jsonObject.get("freecam").getAsBoolean();
                 fr.close();
             } catch (IOException ignored) {
             }

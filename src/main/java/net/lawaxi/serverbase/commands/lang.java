@@ -3,6 +3,7 @@ package net.lawaxi.serverbase.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.lawaxi.serverbase.utils.config.messages;
+import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -12,6 +13,7 @@ public class lang {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("lang")
                 .then(CommandManager.argument(messages.get(48, "null"), StringArgumentType.string())
+                        .suggests((ctx, suggestionsBuilder) -> CommandSource.suggestMatching(messages.getLangList(), suggestionsBuilder))
                         .executes(ctx -> {
                             ServerPlayerEntity player = ctx.getSource().getPlayer();
                             String lang = StringArgumentType.getString(ctx, messages.get(48, "null"));
