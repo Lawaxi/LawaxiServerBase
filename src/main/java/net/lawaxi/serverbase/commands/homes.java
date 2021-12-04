@@ -9,40 +9,42 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class homes {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher)
-    {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("homes")
-                        .executes(ctx -> {
-
-                            ServerPlayerEntity player = ctx.getSource().getPlayer();
-                            getHome(player);
-                            return 1;
-                        })
+                .executes(ctx -> {
+                    ServerPlayerEntity player = ctx.getSource().getPlayer();
+                    getHome(player);
+                    return 1;
+                })
         );
     }
 
-    public static int getHome(ServerPlayerEntity player)
-    {
-        File homefolder = new File(configs.homefolder,player.getEntityName());
-        if(homefolder.exists())
-        {
-            String[] filelist = homefolder.list();
-            if(filelist.length!=0)
-            {
-                String filelist2= messages.get(16,player.getGameProfile().getName()).replace("%player%",player.getEntityName());
-                for(int i=0;i<filelist.length;i++)
-                {
-                    filelist2+=warps.sortName(filelist[i],player.getGameProfile().getName());
-                }
-
-                player.sendMessage(new LiteralText(filelist2.substring(0,filelist2.length()-3)),false);
-
-                return 0;
+    public static int getHome(ServerPlayerEntity player) {
+        ArrayList<String> homes = getHomeNames(player);
+        if (homes.isEmpty()) {
+            player.sendMessage(new LiteralText(messages.get(17, player.getGameProfile().getName())), false);
+        } else {
+            StringBuilder sb = new StringBuilder(messages.get(16, player.getGameProfile().getName()).replace("%player%", player.getEntityName()));
+            for (String s : Objects.requireNonNull(getHomeNames(player))) {
+                sb.append(warps.sortName(s, player.getGameProfile().getName()));
             }
+            player.sendMessage(new LiteralText(sb.toString()), false);
         }
-        player.sendMessage(new LiteralText(messages.get(17,player.getGameProfile().getName())),false);
         return 0;
+    }
+
+    public static ArrayList<String> getHomeNames(ServerPlayerEntity player) {
+        File homeFolder = new File(configs.homeFolder, player.getEntityName());
+        if (homeFolder.exists() && homeFolder.list().length != 0) {
+            ArrayList<String> homes = new ArrayList<>();
+            for (String home : homeFolder.list())
+                homes.add(home.replaceAll("\\.yml$", ""));
+            return homes;
+        }
+        return new ArrayList<>();
     }
 }

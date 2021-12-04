@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "serverbase",
-  "version": "1.8.3",
-
+  "version": "1.10.1",
   "name": "Lawaxi Server Base",
   "description": "ServerBase Mod for Lawaxi",
   "authors": [
-    "Lawaxi"
+    "Lawaxi",
+    "KaiXuan233"
   ],
   "contact": {
-    "homepage": "https://github.com/Lawaxi/LawaxiServerBase",
-    "sources": "https://github.com/Lawaxi/LawaxiServerBase"
+    "homepage": "https://github.com/KaiXuan233/LawaxiServerBase",
+    "sources": "https://github.com/KaiXuan233/LawaxiServerBase"
   },
 
   "license": "CC0-1.0",
@@ -28,7 +28,7 @@
 
   "depends": {
     "fabricloader": ">=0.7.9",
-    "minecraft": "1.16.x"
+    "minecraft": "*"
   },
   "suggests": {
     "flamingo": "*"

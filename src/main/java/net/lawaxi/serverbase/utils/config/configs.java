@@ -2,15 +2,20 @@ package net.lawaxi.serverbase.utils.config;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import java.io.*;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class configs {
 
-    public static final File configfolder = new File("Lawaxi");
-    public static final File backupfolder = new File(configfolder,"datasaves");
-    public static final File warpfolder = new File("world","warps");
-    public static final File homefolder = new File("world","homes");
-    public static final File config = new File(configfolder,"config.json");
+    public static final File worldFolder = new File("world");
+    public static final File configFolder = new File("Lawaxi");
+    public static final File inventoryBackupFolder = new File(configFolder, "inventoryBackups");
+    public static final File warpFolder = new File(worldFolder, "warps");
+    public static final File homeFolder = new File(worldFolder, "homes");
+    public static final File config = new File(configFolder, "config.json");
 
     public static boolean allowBackup = false;
     public static boolean allowFly = false;
@@ -18,28 +23,26 @@ public class configs {
     public static boolean allowSeed = true;
     public static boolean debug = false;
 
-    public configs()
-    {
+    public static boolean freecam = true;
 
-        if(!config.exists()) {
+    public configs() {
+
+        if (!config.exists()) {
             try {
                 config.createNewFile();
-
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
-        }
-
-        else {
+        } else {
             try {
 
                 // 读取配置文件
                 FileReader fr = new FileReader(config);
-                JsonObject shits2 =  new GsonBuilder().create().fromJson(fr, JsonObject.class);
+                JsonObject jsonObject = new GsonBuilder().create().fromJson(fr, JsonObject.class);
 
-                try{
+                try {
                     // 仅为判断文件是否为标准的Json
-                    shits2.has("allowBackup");
-                }catch (NullPointerException badJson){
+                    jsonObject.has("allowBackup");
+                } catch (NullPointerException badJson) {
 
 
                     config.delete();
@@ -50,54 +53,60 @@ public class configs {
                     shits.addProperty("allowBackup", allowBackup);
                     shits.addProperty("allowFly", allowFly);
                     shits.addProperty("allowBack", allowBack);
-                    shits.addProperty("allowSeed",allowSeed);
-                    shits.addProperty("debugVersion",debug);
+                    shits.addProperty("allowSeed", allowSeed);
+                    shits.addProperty("debugVersion", debug);
+                    shits.addProperty("freecam", freecam);
 
                     fw.write(shits.toString());
                     fw.close();
 
                     fr = new FileReader(config);
-                    shits2 = new GsonBuilder().create().fromJson(fr, JsonObject.class);
+                    jsonObject = new GsonBuilder().create().fromJson(fr, JsonObject.class);
                 }
 
                 // 检验是全部配置包含
                 boolean change = false;
-                if (!shits2.has("allowBackup")) {
-                    shits2.addProperty("allowBackup", allowBackup);
+                if (!jsonObject.has("allowBackup")) {
+                    jsonObject.addProperty("allowBackup", allowBackup);
                     change = true;
                 }
-                if(!shits2.has("allowFly")){
-                    shits2.addProperty("allowFly", allowFly);
-                    change=true;
+                if (!jsonObject.has("allowFly")) {
+                    jsonObject.addProperty("allowFly", allowFly);
+                    change = true;
                 }
-                if(!shits2.has("allowBack")){
-                    shits2.addProperty("allowBack", allowBack);
-                    change=true;
+                if (!jsonObject.has("allowBack")) {
+                    jsonObject.addProperty("allowBack", allowBack);
+                    change = true;
                 }
-                if(!shits2.has("allowSeed")){
-                    shits2.addProperty("allowSeed", allowSeed);
-                    change=true;
+                if (!jsonObject.has("allowSeed")) {
+                    jsonObject.addProperty("allowSeed", allowSeed);
+                    change = true;
                 }
-                if(!shits2.has("debugVersion")){
-                    shits2.addProperty("debugVersion", debug);
-                    change=true;
+                if (!jsonObject.has("debugVersion")) {
+                    jsonObject.addProperty("debugVersion", debug);
+                    change = true;
                 }
-                if(change){
+                if (!jsonObject.has("freecam")) {
+                    jsonObject.addProperty("freecam", freecam);
+                    change = true;
+                }
+                if (change) {
                     FileWriter fw = new FileWriter(config);
-                    fw.write(shits2.toString());
+                    fw.write(jsonObject.toString());
                     fw.close();
                 }
 
 
                 // 读取配置
-                allowBackup = shits2.get("allowBackup").getAsBoolean();
-                allowFly = shits2.get("allowFly").getAsBoolean();
-                allowBack = shits2.get("allowBack").getAsBoolean();
-                allowSeed = shits2.get("allowSeed").getAsBoolean();
-                debug = shits2.get("debugVersion").getAsBoolean();
+                allowBackup = jsonObject.get("allowBackup").getAsBoolean();
+                allowFly = jsonObject.get("allowFly").getAsBoolean();
+                allowBack = jsonObject.get("allowBack").getAsBoolean();
+                allowSeed = jsonObject.get("allowSeed").getAsBoolean();
+                debug = jsonObject.get("debugVersion").getAsBoolean();
+                freecam = jsonObject.get("freecam").getAsBoolean();
                 fr.close();
+            } catch (IOException ignored) {
             }
-            catch (IOException e){}
         }
     }
 }

@@ -78,3 +78,7 @@ Home Name
 §cFailed to change your language.
 §cUnsupported language.
 §9Your recent language: §b%lang%
+§cTeleportation to spectators is not allowed.
+§cSpectators may not suicide.
+§6You died at：%world%, %x%, %y%, %z%.
+§6Use /back to return.
