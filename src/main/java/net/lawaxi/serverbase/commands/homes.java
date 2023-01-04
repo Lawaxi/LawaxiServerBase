@@ -6,7 +6,7 @@ import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,13 +26,13 @@ public class homes {
     public static int getHome(ServerPlayerEntity player) {
         ArrayList<String> homes = getHomeNames(player);
         if (homes.isEmpty()) {
-            player.sendMessage(new LiteralText(messages.get(17, player.getGameProfile().getName())), false);
+            player.sendMessage(Text.literal(messages.get(17, player.getGameProfile().getName())), false);
         } else {
             StringBuilder sb = new StringBuilder(messages.get(16, player.getGameProfile().getName()).replace("%player%", player.getEntityName()));
             for (String s : Objects.requireNonNull(getHomeNames(player))) {
                 sb.append(warps.sortName(s, player.getGameProfile().getName()));
             }
-            player.sendMessage(new LiteralText(sb.toString()), false);
+            player.sendMessage(Text.literal(sb.toString()), false);
         }
         return 0;
     }

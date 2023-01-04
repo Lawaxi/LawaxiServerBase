@@ -8,7 +8,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -26,17 +26,17 @@ public class delhome {
                             File homefile = new File(configs.homeFolder + File.separator + player.getEntityName() + File.separator + homename + ".yml");
                             if (homefile.exists()) {
                                 if (homefile.delete()) {
-                                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(49, player.getGameProfile().getName()).replace("%name%", homename)), false);
+                                    ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(49, player.getGameProfile().getName()).replace("%name%", homename)), false);
                                 } else {
-                                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(50, player.getGameProfile().getName()).replace("%name%", homename)), false);
+                                    ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(50, player.getGameProfile().getName()).replace("%name%", homename)), false);
                                 }
                             } else {
-                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(51, player.getGameProfile().getName()).replace("%name%", homename)), false);
+                                ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(51, player.getGameProfile().getName()).replace("%name%", homename)), false);
                             }
                             return 1;
                         }))
                 .executes(ctx -> {
-                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(52, ctx.getSource().getPlayer().getGameProfile().getName())), false);
+                    ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(52, ctx.getSource().getPlayer().getGameProfile().getName())), false);
                     return 1;
                 })
         );

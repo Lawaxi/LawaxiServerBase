@@ -6,7 +6,7 @@ import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class saveme {
                     if (player.getServer().getPlayerManager().getWhitelist().isAllowed(player.getGameProfile())) {
                         File world = new File("world" + File.separator + "playerdata" + File.separator + uuid + ".dat");
                         File worldsave = new File(configs.inventoryBackupFolder, uuid + ".dat");
-                        player.networkHandler.disconnect(new LiteralText(messages.get(59, player.getGameProfile().getName())));
+                        player.networkHandler.disconnect(Text.literal(messages.get(59, player.getGameProfile().getName())));
 
                         new Timer().schedule(new TimerTask() {
                             public void run() {
@@ -38,7 +38,7 @@ public class saveme {
                             }
                         }, 1000);
                     } else {
-                        player.sendMessage(new LiteralText(messages.get(58, player.getGameProfile().getName())), true);
+                        player.sendMessage(Text.literal(messages.get(58, player.getGameProfile().getName())), true);
                     }
 
                     return 1;

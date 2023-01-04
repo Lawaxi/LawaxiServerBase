@@ -9,7 +9,7 @@ import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,12 +34,12 @@ public class sethome {
                             String homename = StringArgumentType.getString(ctx, messages.get(18, "null"));
                             File homefile = new File(configs.homeFolder, player.getEntityName() + File.separator + homename + ".yml");
                             if (homefile.exists()) {
-                                player.sendMessage(new LiteralText(messages.get(19, player.getGameProfile().getName()).replace("%name%", homename)), false);
+                                player.sendMessage(Text.literal(messages.get(19, player.getGameProfile().getName()).replace("%name%", homename)), false);
                             } else {
                                 try {
                                     String world = WorldDescription.getDescription(player.getWorld(), Objects.requireNonNull(player.getServer()));
                                     if (world.equals("shit")) {
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(20, player.getGameProfile().getName())), false);
+                                        ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(20, player.getGameProfile().getName())), false);
                                     } else {
                                         BufferedWriter buffer = Files.newWriter(homefile, StandardCharsets.UTF_8);
 
@@ -56,8 +56,8 @@ public class sethome {
                                         buffer.write(String.valueOf(player.getPitch(1)));
 
                                         buffer.close();
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(21, player.getGameProfile().getName()).replace("%name%", homename)), false);
-                                        ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(2, player.getGameProfile().getName()).replace("%to%", homename)), true);
+                                        ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(21, player.getGameProfile().getName()).replace("%name%", homename)), false);
+                                        ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(2, player.getGameProfile().getName()).replace("%to%", homename)), true);
                                     }
                                 } catch (IOException ignored) {
                                 }
@@ -65,7 +65,7 @@ public class sethome {
                             return 1;
                         }))
                 .executes(ctx -> {
-                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(22, ctx.getSource().getPlayer().getGameProfile().getName())), false);
+                    ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(22, ctx.getSource().getPlayer().getGameProfile().getName())), false);
                     return 1;
                 })
         );

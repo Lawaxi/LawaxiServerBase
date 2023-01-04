@@ -10,7 +10,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -28,12 +28,12 @@ public class warp {
                             LocationInfo location;
                             try {
                                 location = new LocationInfo(warpFile, player);
-                                player.sendMessage(new LiteralText(messages.get(1, player.getGameProfile().getName())), false);
-                                player.sendMessage(new LiteralText(messages.get(2, player.getGameProfile().getName()).replace("%to%", warpName)), true);
+                                player.sendMessage(Text.literal(messages.get(1, player.getGameProfile().getName())), false);
+                                player.sendMessage(Text.literal(messages.get(2, player.getGameProfile().getName()).replace("%to%", warpName)), true);
                                 location.teleport(player);
                                 return 1;
                             } catch (BrokenPositionException e) {
-                                player.sendMessage(new LiteralText(messages.get(4, ctx.getSource().getPlayer().getGameProfile().getName()).replace("%to%", warpName)), false);
+                                player.sendMessage(Text.literal(messages.get(4, ctx.getSource().getPlayer().getGameProfile().getName()).replace("%to%", warpName)), false);
                                 return -1;
                             }
                         }))

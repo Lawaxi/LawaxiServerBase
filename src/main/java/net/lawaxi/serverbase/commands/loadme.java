@@ -6,7 +6,7 @@ import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -27,10 +27,10 @@ public class loadme {
 
 
                         if (!worldsave.exists()) {
-                            player.sendMessage(new LiteralText(messages.get(60, player.getGameProfile().getName())), false);
+                            player.sendMessage(Text.literal(messages.get(60, player.getGameProfile().getName())), false);
                         } else {
 
-                            player.networkHandler.disconnect(new LiteralText(messages.get(61, player.getGameProfile().getName())));
+                            player.networkHandler.disconnect(Text.literal(messages.get(61, player.getGameProfile().getName())));
 
                             //延时模块，网上搜的代码，似乎还挺管用
                             new Timer().schedule(new TimerTask() {
@@ -45,7 +45,7 @@ public class loadme {
                             }, 1000);
                         }
                     } else {
-                        player.sendMessage(new LiteralText(messages.get(58, player.getGameProfile().getName())), true);
+                        player.sendMessage(Text.literal(messages.get(58, player.getGameProfile().getName())), true);
                     }
                     return 1;
                 })

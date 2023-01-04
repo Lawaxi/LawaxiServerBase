@@ -7,7 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 public class hat {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -25,9 +25,9 @@ public class hat {
                         player.getInventory().armor.set(3, lasthand);
                         player.getInventory().main.set(slot, lasthead);
 
-                        player.sendMessage(new LiteralText(messages.get(54, player.getGameProfile().getName())), false);
+                        player.sendMessage(Text.literal(messages.get(54, player.getGameProfile().getName())), false);
                     } else {
-                        player.sendMessage(new LiteralText(messages.get(53, player.getGameProfile().getName())), false);
+                        player.sendMessage(Text.literal(messages.get(53, player.getGameProfile().getName())), false);
                     }
                     return 1;
                 })

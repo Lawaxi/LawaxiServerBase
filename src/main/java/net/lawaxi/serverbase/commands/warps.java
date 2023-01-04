@@ -6,7 +6,7 @@ import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,12 +37,12 @@ public class warps {
                     filelist2 += sortName(name, player.getGameProfile().getName());
                 }
 
-                player.sendMessage(new LiteralText(filelist2.substring(0, filelist2.length() - messages.get(7, player.getGameProfile().getName()).length())), false);
+                player.sendMessage(Text.literal(filelist2.substring(0, filelist2.length() - messages.get(7, player.getGameProfile().getName()).length())), false);
 
                 return 0;
             }
         }
-        player.sendMessage(new LiteralText(messages.get(8, player.getGameProfile().getName())), false);
+        player.sendMessage(Text.literal(messages.get(8, player.getGameProfile().getName())), false);
         return 0;
     }
 

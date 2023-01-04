@@ -8,7 +8,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -26,17 +26,17 @@ public class delwarp {
                             File warpfile = new File(configs.warpFolder + File.separator + warpname + ".yml");
                             if (warpfile.exists()) {
                                 if (warpfile.delete()) {
-                                    player.sendMessage(new LiteralText(messages.get(44, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                                    player.sendMessage(Text.literal(messages.get(44, player.getGameProfile().getName()).replace("%name%", warpname)), false);
                                 } else {
-                                    player.sendMessage(new LiteralText(messages.get(45, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                                    player.sendMessage(Text.literal(messages.get(45, player.getGameProfile().getName()).replace("%name%", warpname)), false);
                                 }
                             } else {
-                                ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(46, player.getGameProfile().getName()).replace("%name%", warpname)), false);
+                                ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(46, player.getGameProfile().getName()).replace("%name%", warpname)), false);
                             }
                             return 1;
                         }))
                 .executes(ctx -> {
-                    ctx.getSource().getPlayer().sendMessage(new LiteralText(messages.get(47, ctx.getSource().getPlayer().getGameProfile().getName())), false);
+                    ctx.getSource().getPlayer().sendMessage(Text.literal(messages.get(47, ctx.getSource().getPlayer().getGameProfile().getName())), false);
                     return 1;
                 })
         );

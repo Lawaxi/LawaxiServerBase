@@ -5,7 +5,7 @@ import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 public class bans {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -20,9 +20,9 @@ public class bans {
                     }
 
                     if (!out.equals(""))
-                        player.sendMessage(new LiteralText(messages.get(41, player.getGameProfile().getName()) + out.substring(0, out.length() - 1)), false);
+                        player.sendMessage(Text.literal(messages.get(41, player.getGameProfile().getName()) + out.substring(0, out.length() - 1)), false);
                     else
-                        player.sendMessage(new LiteralText(messages.get(42, player.getGameProfile().getName())), false);
+                        player.sendMessage(Text.literal(messages.get(42, player.getGameProfile().getName())), false);
                     return 1;
                 })
         );

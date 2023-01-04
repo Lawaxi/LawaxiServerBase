@@ -1,3 +1,4 @@
+English
 §aHello, %player%！
 §aTeleporting...
 §a%to%
@@ -32,7 +33,7 @@ Player
 §cYou've already sent a teleport request.
 §cPlease type in the player you want to teleport.
 §cYou cannot request yourself to teleport.
-§e%from% §6requests you to telport him:
+§e%from% §6requests you to teleport him:
 §cThere's no teleport requests for you to accept.
 §cThere's no teleport requests for you to refuse.
 §cYour request has been refused.
@@ -74,10 +75,10 @@ Home Name
 §9Language Supported:
 §b%lang%
 §9,
-§aSuccessfully changed your display language to §b%lang%§a.
+§aSuccessfully changed your display language to §b%lang2%§a.
 §cFailed to change your language.
 §cUnsupported language.
-§9Your recent language: §b%lang%
+§9Your recent language: §b%lang2% (%lang%)
 §cTeleportation to spectators is not allowed.
 §cSpectators may not suicide.
 §6You died at：%world%, %x%, %y%, %z%.

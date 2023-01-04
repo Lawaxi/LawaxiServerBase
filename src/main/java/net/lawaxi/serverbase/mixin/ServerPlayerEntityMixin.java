@@ -8,7 +8,6 @@ import net.lawaxi.serverbase.utils.config.configs;
 import net.lawaxi.serverbase.utils.config.messages;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
@@ -55,13 +54,13 @@ public abstract class ServerPlayerEntityMixin {
             } else {
                 worldString = "Unknown";
             }
-            player.sendMessage(new LiteralText(messages.get(82, player.getGameProfile().getName())
+            player.sendMessage(Text.literal(messages.get(82, player.getGameProfile().getName())
                     .replace("%world%", worldString)
                     .replace("%x%", String.valueOf(player.getBlockX()))
                     .replace("%y%", String.valueOf(player.getBlockY()))
                     .replace("%z%", String.valueOf(player.getBlockZ()))), false);
             if (configs.allowBack)
-                player.sendMessage(new LiteralText(messages.get(83, player.getGameProfile().getName())), false);
+                player.sendMessage(Text.literal(messages.get(83, player.getGameProfile().getName())), false);
 
     }
 
@@ -72,7 +71,7 @@ public abstract class ServerPlayerEntityMixin {
         ServerPlayerEntity player = ((ServerPlayerEntity) (Object) this);
         if (player.interactionManager.getGameMode() == GameMode.SPECTATOR) {
             if (!PseudoFreecam.actualLocation.containsKey(player.getGameProfile())) {
-                player.sendMessage(new LiteralText(messages.get(62, player.getGameProfile().getName())), false);
+                player.sendMessage(Text.literal(messages.get(62, player.getGameProfile().getName())), false);
                 info.cancel();
             }
         }
@@ -142,7 +141,7 @@ public abstract class ServerPlayerEntityMixin {
                     ((ServerPlayerEntity) (Object) this).getBlockPos()));
 
             try {
-                sendMessage(new LiteralText(messages.get(0, a.getName()).replace("%player%", a.getName())), true);
+                sendMessage(Text.literal(messages.get(0, a.getName()).replace("%player%", a.getName())), true);
             } catch (NullPointerException ignored) {
 
             }

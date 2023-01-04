@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
 public class here {
@@ -20,7 +20,7 @@ public class here {
 
                         for (ServerPlayerEntity PLA : player.getWorld().getPlayers()) {
                             PLA.sendMessage(
-                                    new LiteralText(messages.get(69, PLA.getGameProfile().getName())
+                                    Text.literal(messages.get(69, PLA.getGameProfile().getName())
                                             .replace("%x%", deal(player.getX()))
                                             .replace("%y%", deal(player.getY()))
                                             .replace("%z%", deal(player.getZ()))
@@ -32,7 +32,7 @@ public class here {
 
                         for (ServerPlayerEntity PLA : player.getWorld().getPlayers()) {
                             PLA.sendMessage(
-                                    new LiteralText(messages.get(71, PLA.getGameProfile().getName())
+                                    Text.literal(messages.get(71, PLA.getGameProfile().getName())
                                             .replace("%x%", deal(player.getX()))
                                             .replace("%y%", deal(player.getY()))
                                             .replace("%z%", deal(player.getZ()))
@@ -44,7 +44,7 @@ public class here {
 
                         for (ServerPlayerEntity PLA : player.getWorld().getPlayers()) {
                             PLA.sendMessage(
-                                    new LiteralText(messages.get(70, PLA.getGameProfile().getName())
+                                    Text.literal(messages.get(70, PLA.getGameProfile().getName())
                                             .replace("%x%", deal(player.getX()))
                                             .replace("%y%", deal(player.getY()))
                                             .replace("%z%", deal(player.getZ()))
@@ -56,7 +56,7 @@ public class here {
 
                         for (ServerPlayerEntity PLA : player.getWorld().getPlayers()) {
                             PLA.sendMessage(
-                                    new LiteralText(messages.get(72, PLA.getGameProfile().getName())
+                                    Text.literal(messages.get(72, PLA.getGameProfile().getName())
                                             .replace("%x%", deal(player.getX()))
                                             .replace("%y%", deal(player.getY()))
                                             .replace("%z%", deal(player.getZ()))
