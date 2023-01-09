@@ -42,7 +42,7 @@ public class here {
                         }
                     } else if (player.getWorld() == player.getServer().getWorld(World.NETHER)) {
 
-                        for (ServerPlayerEntity PLA : player.getWorld().getPlayers()) {
+                        for (ServerPlayerEntity PLA : player.getServer().getPlayerManager().getPlayerList()) {
                             PLA.sendMessage(
                                     Text.literal(messages.get(70, PLA.getGameProfile().getName())
                                             .replace("%x%", deal(player.getX()))
